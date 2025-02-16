@@ -1,4 +1,4 @@
-# Descending quick sort
+// # Descending quick sort
 
 #include <bits/stdc++.h>
 using namespace std;
