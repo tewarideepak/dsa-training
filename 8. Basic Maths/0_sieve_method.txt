@@ -1,0 +1,75 @@
+🧠 Sieve of Eratosthenes – C++ Notes
+✅ Goal:
+
+Efficiently find all prime numbers ≤ n
+📌 Concept:
+
+    Create a boolean array isPrime[] of size n+1, initialized to true
+
+    isPrime[i] = true means i is assumed prime until proven otherwise
+
+    Mark all multiples of each prime number (starting from 2) as non-prime
+
+    Time Complexity: O(n log log n)
+
+🔢 Steps:
+
+    Create isPrime[n+1] and initialize all entries to true
+
+    Set isPrime[0] and isPrime[1] to false (0 and 1 are not prime)
+
+    For every i from 2 to √n:
+
+        If isPrime[i] is true:
+
+            Mark all multiples of i from i*i to n as false
+
+🧾 C++ Code:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void sieve(int n) {
+    vector<bool> isPrime(n + 1, true);
+
+    isPrime[0] = isPrime[1] = false;
+
+    for (int i = 2; i * i <= n; i++) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+
+    // Print all prime numbers
+    for (int i = 2; i <= n; i++) {
+        if (isPrime[i]) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+}
+
+📈 Example:
+
+If n = 30, output:
+
+2 3 5 7 11 13 17 19 23 29
+
+⚙️ Optimizations:
+
+    Inner loop starts from i*i not 2*i (since smaller multiples already marked)
+
+    Use bitset for large n to save memory
+
+    Use segmented sieve for huge n (10^9+)
+
+📚 Use Cases:
+
+    Competitive programming
+
+    Cryptography (finding primes efficiently)
+
+    Precomputing primes for prime factorization

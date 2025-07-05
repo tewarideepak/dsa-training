@@ -1,0 +1,53 @@
+🔍 What is Euclid's Algorithm?
+
+Euclid's Algorithm is a highly efficient method to compute the Greatest Common Divisor (GCD) of two numbers.
+
+The core idea is:
+
+    The GCD of two numbers a and b (where a > b) is the same as the GCD of b and a % b.
+
+This continues until the remainder is 0, at which point the GCD is the non-zero number.
+📘 Euclid's Algorithm – Step-by-Step:
+
+Suppose you want to find GCD(48, 18):
+
+    48 % 18 = 12
+
+    18 % 12 = 6
+
+    12 % 6 = 0 → GCD is 6
+
+So:
+GCD(48,18)=GCD(18,12)=GCD(12,6)=GCD(6,0)=6
+GCD(48,18)=GCD(18,12)=GCD(12,6)=GCD(6,0)=6
+✅ Why it works:
+
+If a number divides both a and b, it will also divide a % b. So the set of common divisors doesn’t change when we replace (a, b) with (b, a % b). Eventually, one of the numbers becomes zero, and the other is the GCD.
+✅ C++ Implementation:
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+🧠 Recursive Version:
+
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+📊 Time Complexity:
+
+O(log(min(a, b)))
+
+This is very fast, even for numbers with hundreds of digits.
+📦 Space Complexity:
+
+    Iterative version: O(1)
+
+    Recursive version: O(log(min(a, b)) (due to call stack)
