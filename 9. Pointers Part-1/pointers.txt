@@ -1,0 +1,125 @@
+📌 Pointers in C++ — Notes
+
+✅ Definition
+
+    A pointer is a variable that stores the memory address of another variable.
+
+    It "points to" the location in memory where data is stored.
+
+🧠 Basic Syntax
+
+int a = 10;
+int* ptr = &a; // ptr stores the address of variable a
+
+    * declares a pointer.
+
+    & is the address-of operator, gives the address of a variable.
+
+🔍 Key Concepts
+
+| Concept          | Symbol    | Description                                          |
+| ---------------- | --------- | ---------------------------------------------------- |
+| Address-of       | `&`       | Gets the address of a variable                       |
+| Dereference      | `*`       | Accesses the value at the address the pointer stores |
+| Null Pointer     | `nullptr` | Special pointer that points to nothing               |
+| Dangling Pointer |           | Points to memory that is freed or out of scope       |
+| Wild Pointer     |           | Uninitialized pointer                                |
+
+💡 Pointer Declaration
+
+int* p;    // pointer to int
+char* c;   // pointer to char
+float* f;  // pointer to float
+
+🎯 Example
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 5;
+    int* ptr = &x;
+
+    cout << "Value of x: " << x << endl;               // 5
+    cout << "Address of x: " << &x << endl;            // e.g., 0x61ff08
+    cout << "Value stored in ptr: " << ptr << endl;    // same as &x
+    cout << "Value pointed by ptr: " << *ptr << endl;  // 5
+}
+
+🧮 Pointer Arithmetic
+
+    Only allowed with pointers to elements of arrays.
+
+int arr[] = {10, 20, 30};
+int* p = arr;
+
+cout << *(p + 1); // 20
+
+| Operation | Meaning                    |
+| --------- | -------------------------- |
+| `p++`     | Move to next element       |
+| `p--`     | Move to previous element   |
+| `p + n`   | Move `n` elements forward  |
+| `p - n`   | Move `n` elements backward |
+
+
+Array name is a constant pointer.
+
+int arr[] = {1, 2, 3};
+int* p = arr;
+
+cout << *p;     // 1
+cout << *(p+1); // 2
+
+🧱 Pointer to Pointer
+
+    A pointer that stores the address of another pointer.
+
+int x = 5;
+int* p = &x;
+int** pp = &p;
+
+cout << **pp; // 5
+
+🛠️ Pointers with Functions
+
+    Call by reference using pointers:
+
+void modify(int* ptr) {
+    *ptr = 20;
+}
+
+int main() {
+    int x = 10;
+    modify(&x);
+    cout << x; // 20
+}
+
+🧰 Dynamic Memory with Pointers
+
+int* p = new int;   // dynamically allocated int
+*p = 10;
+
+delete p;           // deallocate memory
+p = nullptr;
+
+🧼 Best Practices
+
+    Always initialize pointers:
+
+    int* p = nullptr;
+
+    After delete, set pointer to nullptr to avoid dangling pointers.
+
+    Avoid pointer arithmetic unless necessary.
+
+    Use smart pointers (std::unique_ptr, std::shared_ptr) in modern C++.
+
+⚠️ Common Errors
+
+| Mistake                     | Result                   |
+| --------------------------- | ------------------------ |
+| Dereferencing null pointer  | Runtime crash (segfault) |
+| Forgetting `delete`         | Memory leak              |
+| Using uninitialized pointer | Undefined behavior       |
+| Using freed memory          | Dangling pointer bug     |
