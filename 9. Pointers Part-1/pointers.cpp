@@ -32,4 +32,26 @@ int main()
     cout << p << " - " << q << endl;
 
     cout << *p << " - " << *q << endl;
+
+    int arr[10] = {2, 5, 6};
+
+    cout << *arr << endl;
+
+    int i = 2;
+
+    cout << i[arr] << endl; //  *(i+arr)
+
+    int temp[10] = {1, 2};
+    cout << sizeof(temp) << endl;
+    cout << " 1st " << sizeof(*temp) << endl;
+    cout << " 2nd " << sizeof(&temp) << endl;
+
+    int *pt = &temp[0];
+    cout << sizeof(pt) << endl;
+    cout << sizeof(*pt) << endl;
+    cout << sizeof(&pt) << endl;
+
+    cout << pt << endl;
+    cout << *pt << endl;
+    cout << &pt << endl;
 }

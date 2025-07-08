@@ -123,3 +123,101 @@ p = nullptr;
 | Forgetting `delete`         | Memory leak              |
 | Using uninitialized pointer | Undefined behavior       |
 | Using freed memory          | Dangling pointer bug     |
+
+📌 1. Definition
+
+    Pointer: A variable that stores the memory address of another variable.
+
+    Array: A collection of contiguous memory locations of the same data type.
+
+int x = 10;
+int* ptr = &x;     // pointer to int
+int arr[5] = {1, 2, 3, 4, 5};  // array of ints
+
+📌 2. Memory Allocation
+
+    Array: Allocates a fixed-size block of memory at compile time.
+
+    Pointer: Can point to dynamically or statically allocated memory.
+
+int arr[3];              // fixed at compile time
+int* ptr = new int[3];   // allocated at runtime
+
+📌 3. Syntax and Access
+
+    Both use [] for element access, but pointers require memory to be allocated beforehand.
+
+int arr[3] = {10, 20, 30};
+int* ptr = arr;
+
+std::cout << arr[1];   // 20
+std::cout << ptr[1];   // 20 (pointer arithmetic)
+
+📌 4. Size
+
+    sizeof(array) gives total memory: n × sizeof(type)
+
+    sizeof(pointer) gives size of the pointer itself (usually 4 or 8 bytes)
+
+int arr[5];
+int* ptr = arr;
+
+sizeof(arr); // 20 (5 × 4 bytes if int = 4B)
+sizeof(ptr); // 8 (on 64-bit system)
+
+📌 5. Modifiability
+
+    Array names are not modifiable (they decay to pointer but can't be reassigned).
+
+    Pointers can be reassigned to point elsewhere.
+
+int a[5], b[5];
+int* p = a;
+p = b;       // ✅ OK
+
+a = b;       // ❌ Error: array name is not assignable
+
+📌 6. Pointer Arithmetic
+
+    Pointers support arithmetic (+, -) to navigate memory.
+
+    Arrays don’t support pointer arithmetic directly.
+
+int arr[3] = {1, 2, 3};
+int* p = arr;
+
+std::cout << *(p + 1);  // 2
+
+📌 7. Function Arguments
+
+    Arrays decay to pointers when passed to functions.
+
+    You usually receive an int* when you pass an int[].
+
+void func(int* ptr) {
+  std::cout << ptr[0];
+}
+
+int arr[3] = {10, 20, 30};
+func(arr);  // ✅ treated as pointer
+
+📌 8. Nullability
+
+    Pointers can be nullptr or NULL.
+
+    Arrays cannot be null — they must point to valid memory.
+
+int* p = nullptr;  // ✅ OK
+int arr[5];        // always allocated
+
+✅ Summary Table
+
+| Feature             | Array                   | Pointer                      |
+| ------------------- | ----------------------- | ---------------------------- |
+| Type                | Fixed-size memory block | Stores address of a variable |
+| Memory              | Compile-time allocation | Can be dynamic or static     |
+| Size (sizeof)       | Total size of elements  | Size of address only         |
+| Modifiable?         | ❌ Can't reassign        | ✅ Can be reassigned          |
+| Supports arithmetic | ❌ No                    | ✅ Yes                        |
+| Can be null?        | ❌ No                    | ✅ Yes                        |
+| Passed to function  | Decays to pointer       | Passed as-is                 |
