@@ -221,3 +221,98 @@ int arr[5];        // always allocated
 | Supports arithmetic | ❌ No                    | ✅ Yes                        |
 | Can be null?        | ❌ No                    | ✅ Yes                        |
 | Passed to function  | Decays to pointer       | Passed as-is                 |
+
+📘 Char Arrays using Pointers in C++
+
+✅ 1. Declaration of char array using pointer
+
+char *str = "Hello";
+
+    "Hello" is a string literal stored in read-only memory.
+
+    str points to the first character 'H'.
+
+    Immutable → You should not modify characters in this string.
+
+str[0] = 'h';  // ❌ Undefined Behavior
+
+✅ 2. Modifiable char array with pointer
+
+char arr[] = "Hello";
+char *ptr = arr;
+
+    "Hello" is copied into the stack memory.
+
+    arr is an array (modifiable), and ptr points to its first element.
+
+    You can safely modify:
+
+ptr[0] = 'h';  // ✅ Works fine
+
+✅ 3. Accessing characters using pointer
+
+char arr[] = "World";
+char *p = arr;
+
+cout << *p;     // W
+cout << *(p+1); // o
+
+✅ 4. Pointer arithmetic with char arrays
+
+char str[] = "Test";
+char *p = str;
+
+while(*p != '\0') {
+    cout << *p;
+    p++;
+}
+
+    Loops through and prints each character.
+
+    *p gives the character.
+
+    p++ moves to the next character.
+
+✅ 5. Difference between char[] and char*
+
+| Feature              | `char arr[] = "Hi";` | `char *ptr = "Hi";`                  |
+| -------------------- | -------------------- | ------------------------------------ |
+| Memory location      | Stack                | Read-only (or static area)           |
+| Modifiable           | ✅ Yes                | ❌ No (undefined behavior)            |
+| Size (with `sizeof`) | `3` (includes `\0`)  | `8` (pointer size, not content size) |
+
+
+✅ 6. Common operations
+
+    Length using strlen(ptr)
+
+    Copy: strcpy(dest, src);
+
+    Compare: strcmp(str1, str2);
+
+    Concatenate: strcat(str1, str2);
+
+char a[20] = "Hi ";
+char b[] = "there";
+strcat(a, b); // a = "Hi there"
+
+✅ 7. Dynamic char array using pointer
+
+char *ptr = new char[100];
+strcpy(ptr, "Dynamic memory");
+cout << ptr;
+delete[] ptr;
+
+✅ 8. Null terminator \0
+
+    Every C-style string must end with \0 (null character).
+
+    Used by functions like strlen, strcpy to detect end.
+
+💡 Summary
+
+    Use char[] for modifiable strings.
+
+    Use char* carefully; string literals are not modifiable.
+
+    Prefer std::string in modern C++ unless low-level manipulation is needed.
