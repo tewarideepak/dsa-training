@@ -316,3 +316,95 @@ delete[] ptr;
     Use char* carefully; string literals are not modifiable.
 
     Prefer std::string in modern C++ unless low-level manipulation is needed.
+
+🔁 Double Pointer in C++
+
+✅ Definition:
+
+A double pointer (or pointer to a pointer) is a variable that stores the address of another pointer.
+
+int **ptr; // double pointer to an int
+
+🧠 Memory Levels:
+
+    int a = 10; → a stores value 10
+
+    int *p = &a; → p stores address of a
+
+    int **pp = &p; → pp stores address of p
+
+a   = 10         (value)
+p   = &a         (pointer to value)
+pp  = &p         (pointer to pointer)
+
+📌 Example Code:
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a = 10;
+    int *p = &a;
+    int **pp = &p;
+
+    cout << "Value of a: " << a << endl;
+    cout << "Value via *p: " << *p << endl;
+    cout << "Value via **pp: " << **pp << endl;
+
+    return 0;
+}
+
+💡 Output:
+
+Value of a: 10
+Value via *p: 10
+Value via **pp: 10
+
+🧩 Why Use Double Pointers?
+Use Case	Description
+Dynamic memory allocation	Used with arrays of pointers (e.g., 2D arrays)
+Function parameters	To modify the actual pointer passed (e.g., allocating memory inside function)
+Complex data structures	Useful in trees, graphs, linked lists, etc.
+🛠️ Function with Double Pointer Example:
+
+void allocate(int **ptr) {
+    *ptr = new int;
+    **ptr = 42;
+}
+
+int main() {
+    int *p = nullptr;
+    allocate(&p);
+    cout << *p << endl; // 42
+    delete p;
+}
+
+📚 Double Pointer with 2D Array:
+
+int **matrix = new int*[rows];
+for (int i = 0; i < rows; i++) {
+    matrix[i] = new int[cols];
+}
+
+🧹 Deallocation (Important):
+
+for (int i = 0; i < rows; i++) {
+    delete[] matrix[i];
+}
+delete[] matrix;
+
+⚠️ Common Pitfalls:
+
+    Forgetting to deallocate memory → memory leaks.
+
+    Misunderstanding levels of indirection (* vs **).
+
+    Using uninitialized double pointers.
+
+🧮 Visual Representation:
+
+int a = 5;
+int *p = &a;
+int **pp = &p;
+
+pp --> p --> a --> 5
