@@ -1,0 +1,72 @@
+📌 Dynamic Memory Allocation of 2D Arrays in C++
+
+✅ Why Dynamically Allocate 2D Arrays?
+
+    When the number of rows and columns is not known at compile time.
+
+    To optimize memory usage.
+
+    Required in competitive programming or for matrix-based problems.
+
+🔹 Method 1: Array of Pointers (Most Common)
+
+int rows = 3, cols = 4;
+int** arr = new int*[rows];        // array of pointers (rows)
+
+for (int i = 0; i < rows; ++i) {
+    arr[i] = new int[cols];       // each row gets an array of columns
+}
+
+🧹 Deallocation:
+
+for (int i = 0; i < rows; ++i)
+    delete[] arr[i];              // delete each row
+
+delete[] arr;                     // delete row pointer array
+
+🔹 Method 2: Single Block (Contiguous Memory)
+
+int rows = 3, cols = 4;
+int* data = new int[rows * cols]; // single block
+
+// Access using: data[i * cols + j]
+
+🧹 Deallocation:
+
+delete[] data;
+
+    ✅ Pros: Better cache performance, fewer allocations
+    ❌ Cons: Less intuitive access
+
+🔹 Method 3: Vector of Vectors (C++ STL)
+
+int rows = 3, cols = 4;
+std::vector<std::vector<int>> arr(rows, std::vector<int>(cols));
+
+    ✅ Pros: Automatically handles memory, resizing
+    ❌ Cons: Slight overhead; not strictly "low-level" dynamic allocation
+
+🔹 Access Pattern
+For all 3 methods:
+
+for (int i = 0; i < rows; ++i)
+    for (int j = 0; j < cols; ++j)
+        arr[i][j] = i * j;  // Example initialization
+
+    For Method 2: data[i * cols + j] = i * j;
+
+🛑 Important Points
+
+    Always delete[] each row before deleting the pointer array.
+
+    Use vector<vector<int>> when resizing or STL integration is needed.
+
+    Prefer Method 2 for performance-critical tasks (e.g., in contests).
+
+🔁 Summary Table
+
+| Method                  | Syntax Complexity | Memory Contiguity | Ease of Use | Resizing |
+| ----------------------- | ----------------- | ----------------- | ----------- | -------- |
+| Array of Pointers       | Medium            | No                | Easy        | No       |
+| Single Block (1D trick) | Medium            | Yes               | Medium      | No       |
+| `vector<vector<int>>`   | Easy              | Depends           | Very Easy   | Yes      |
