@@ -1,0 +1,71 @@
+📌 Jagged Arrays in C++ (Also called Ragged Arrays)
+
+✅ What is a Jagged Array?
+
+A jagged array is an array of arrays where each row can have a different number of columns.
+
+    Unlike 2D arrays with fixed dimensions, jagged arrays allow variable-length rows.
+
+🔹 How to Create a Jagged Array in C++
+✅ Using Array of Pointers (Dynamic Allocation)
+
+int rows = 3;
+int* jagged[3]; // array of int pointers
+
+jagged[0] = new int[2];  // row 0 has 2 elements
+jagged[1] = new int[4];  // row 1 has 4 elements
+jagged[2] = new int[3];  // row 2 has 3 elements
+
+🔹 Access and Input:
+
+// Assign values
+jagged[0][0] = 1; jagged[0][1] = 2;
+jagged[1][0] = 3; jagged[1][1] = 4; jagged[1][2] = 5; jagged[1][3] = 6;
+jagged[2][0] = 7; jagged[2][1] = 8; jagged[2][2] = 9;
+
+🔹 Output:
+
+for (int i = 0; i < rows; i++) {
+    int cols = (i == 0) ? 2 : (i == 1) ? 4 : 3;
+    for (int j = 0; j < cols; j++) {
+        cout << jagged[i][j] << " ";
+    }
+    cout << endl;
+}
+
+✅ Deallocate Memory
+
+delete[] jagged[0];
+delete[] jagged[1];
+delete[] jagged[2];
+
+🔹 Using vector<vector<int>> (Preferred in C++)
+
+vector<vector<int>> jagged = {
+    {1, 2},
+    {3, 4, 5, 6},
+    {7, 8, 9}
+};
+
+🔹 Access:
+
+for (int i = 0; i < jagged.size(); i++) {
+    for (int j = 0; j < jagged[i].size(); j++) {
+        cout << jagged[i][j] << " ";
+    }
+    cout << endl;
+}
+
+✅ Use Cases of Jagged Arrays
+
+    Triangular matrices
+
+    Adjacency lists in graphs
+
+    Irregular data sets (rows of varying length)
+
+⚠️ Note
+
+    C++ doesn’t have built-in jagged arrays like Java.
+
+    You simulate them using pointers or STL containers (vector).
