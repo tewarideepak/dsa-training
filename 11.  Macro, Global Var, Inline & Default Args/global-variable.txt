@@ -1,0 +1,70 @@
+🌍 Global Variables in C++
+✅ Definition:
+
+    A global variable is a variable declared outside all functions, typically at the top of the program.
+
+    It is accessible from any function within the same file (or translation unit).
+
+📌 Syntax:
+
+#include <iostream>
+int globalVar = 10; // global variable
+
+void display() {
+    std::cout << "globalVar = " << globalVar << std::endl;
+}
+
+int main() {
+    std::cout << "Inside main: " << globalVar << std::endl;
+    display();
+    return 0;
+}
+
+🔄 Scope & Lifetime:
+
+| Property          | Description                                |
+| ----------------- | ------------------------------------------ |
+| **Scope**         | Entire program (file/translation unit)     |
+| **Lifetime**      | Entire execution time of the program       |
+| **Storage class** | Static by default (stored in data segment) |
+
+🛑 Drawbacks of Global Variables:
+
+    Poor encapsulation (accessible from anywhere)
+
+    Hard to track usage in large codebases
+
+    Risk of name conflicts
+
+    Can lead to bugs from unintended modifications
+
+✅ When to Use:
+
+    When multiple functions need to share a constant state or configuration.
+
+    For system-level variables, flags, or debug modes.
+
+    In small programs for simplicity.
+
+🔐 Best Practices:
+
+    Avoid unless truly necessary.
+
+    Prefer function parameters, class members, or static variables in limited scope.
+
+    Use const or constexpr for read-only global data.
+
+🧠 extern Keyword with Globals:
+
+    Allows global variables to be shared across multiple files.
+
+    Example:
+
+file1.cpp
+
+int counter = 0;
+
+file2.cpp
+
+extern int counter; // declaration, no memory allocation
+void increment() { counter++; }

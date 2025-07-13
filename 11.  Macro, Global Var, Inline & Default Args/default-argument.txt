@@ -1,0 +1,68 @@
+⚙️ Default Arguments in C++
+✅ Definition:
+
+    Default arguments are values assigned to function parameters by default if no corresponding argument is passed during the function call.
+
+📌 Syntax:
+
+void greet(string name = "Guest") {
+    std::cout << "Hello, " << name << "!\n";
+}
+
+int main() {
+    greet();            // Output: Hello, Guest!
+    greet("Deepak");    // Output: Hello, Deepak!
+}
+
+🔄 Rules for Default Arguments:
+
+    Default values must be assigned from right to left.
+
+    You cannot skip arguments in between.
+
+✅ Valid:
+
+void func(int a, int b = 10, int c = 20);
+
+❌ Invalid:
+
+void func(int a = 10, int b, int c = 20); // ❌ Error
+
+📌 Function Overloading vs Default Arguments
+
+Both provide similar behavior, but:
+
+| Feature         | Default Arguments            | Function Overloading            |
+| --------------- | ---------------------------- | ------------------------------- |
+| Fewer functions | ✅ One function with defaults | ❌ Multiple definitions required |
+| Readability     | ✅ More readable              | ❌ Can get messy                 |
+| Flexibility     | ❌ Less flexible              | ✅ More flexible                 |
+
+
+💡 Use Cases:
+
+    Simplify functions with optional parameters.
+
+    Provide sensible defaults (e.g., log levels, config values).
+
+    Make APIs cleaner.
+
+🧠 Best Practices:
+
+    Prefer default arguments over multiple overloaded functions for readability.
+
+    Keep default values in function declarations in header files.
+
+    Avoid ambiguity in overloaded functions with default arguments.
+
+🧪 Example with Multiple Defaults:
+
+void show(int a = 1, int b = 2, int c = 3) {
+    std::cout << a << " " << b << " " << c << "\n";
+}
+
+int main() {
+    show();         // 1 2 3
+    show(10);       // 10 2 3
+    show(10, 20);   // 10 20 3
+}

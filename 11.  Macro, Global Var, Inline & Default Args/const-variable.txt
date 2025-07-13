@@ -1,0 +1,71 @@
+🔒 Constant Variables in C++
+✅ Definition:
+
+A constant variable is a variable whose value cannot be changed after initialization.
+
+    Declared using the const keyword.
+
+📌 Syntax:
+
+const int MAX = 100;
+MAX = 200; // ❌ Error: assignment of read-only variable
+
+🧠 Key Points:
+
+| Feature               | Description                               |
+| --------------------- | ----------------------------------------- |
+| `const` keyword       | Makes a variable read-only                |
+| Must be initialized   | Value must be assigned during declaration |
+| Compile-time constant | Evaluated and fixed at compile time       |
+| Scope                 | Can be global, local, or class member     |
+
+📋 Examples:
+1. Constant Integer
+
+const int age = 25;
+
+2. Constant Pointer
+
+int a = 10;
+int* const ptr = &a; // Pointer cannot point elsewhere
+
+3. Pointer to Constant
+
+const int* ptr = &a; // Cannot modify value through ptr
+
+🆚 const vs #define:
+
+| Feature       | `const`      | `#define`          |
+| ------------- | ------------ | ------------------ |
+| Type-safe     | ✅ Yes        | ❌ No               |
+| Scope-limited | ✅ Yes        | ❌ Global           |
+| Debuggable    | ✅ Yes        | ❌ No               |
+| Replaces at   | Compile-time | Preprocessor stage |
+
+⚙️ constexpr (Modern C++ alternative):
+
+    Use constexpr instead of const when the value is known at compile time and used in constant expressions.
+
+constexpr int SIZE = 10;
+int arr[SIZE]; // Valid
+
+🔐 Use Cases:
+
+    Defining read-only config values
+
+    Array sizes (when known at compile time)
+
+    Constants in classes or namespaces
+
+🧪 Example:
+
+#include <iostream>
+
+const float PI = 3.14159;
+
+int main() {
+    float r = 5;
+    float area = PI * r * r;
+    std::cout << "Area = " << area;
+    return 0;
+}

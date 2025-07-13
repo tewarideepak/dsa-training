@@ -1,0 +1,92 @@
+🔶 Macros in C++
+✅ Definition:
+
+    Macros are preprocessor directives that define constants or code snippets which get replaced by the preprocessor before compilation.
+
+    Declared using the #define directive.
+
+📌 Types of Macros:
+1. Object-like Macros
+
+    Acts like a constant or identifier.
+
+    Syntax:
+
+#define PI 3.14159
+
+Usage:
+
+    float area = PI * r * r;
+
+2. Function-like Macros
+
+    Acts like an inline function.
+
+    Syntax:
+
+#define SQUARE(x) ((x) * (x))
+
+Usage:
+
+    int a = SQUARE(5);  // Result: 25
+
+3. Multi-line Macros
+
+    Macros that span multiple lines using \.
+
+    Example:
+
+    #define PRINT_INT(x) \
+      std::cout << "Value of " #x " is: " << x << std::endl;
+
+⚠️ Macro Pitfalls:
+
+    No type checking
+
+    Can evaluate expressions multiple times (side effects)
+
+    #define SQUARE(x) ((x)*(x))
+    SQUARE(i++); // Dangerous: `i` gets incremented twice
+
+    Use inline functions or const/constexpr in modern C++ instead.
+
+🧠 Macro Operators:
+
+| Operator | Use                                       |
+| -------- | ----------------------------------------- |
+| `#`      | Converts argument to string (stringizing) |
+| `##`     | Concatenates tokens (token pasting)       |
+
+
+Example:
+
+#define STR(x) #x
+#define CONCAT(a, b) a##b
+
+STR(Hello)       → "Hello"  
+CONCAT(num, 10)  → num10
+
+📋 Common Macro Uses:
+
+    Header guards
+
+#ifndef HEADER_H
+#define HEADER_H
+// code
+#endif
+
+Conditional compilation
+
+    #ifdef DEBUG
+      std::cout << "Debug mode\n";
+    #endif
+
+    Platform-specific code
+
+✅ Best Practices:
+
+    Prefer const, constexpr, or inline over macros.
+
+    Use enum or constexpr for constant values.
+
+    Use macros only where necessary (e.g., header guards, conditional compilation).

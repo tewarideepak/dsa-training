@@ -1,0 +1,76 @@
+🚀 Inline Functions in C++
+✅ Definition :
+
+    An inline function is a function where the compiler attempts to replace the function call with the actual function code to reduce function call overhead.
+
+    Suggested using the inline keyword.
+
+📌 Syntax :
+
+    inline int square(int x)
+    {
+        return x * x;
+    }
+
+    int main()
+    {
+        int result = square(5); // Might be replaced as: int result = 5 * 5;
+    }
+
+🎯 Key Features:
+| Feature                        | Description                                                           |
+| ------------------------------ | --------------------------------------------------------------------- |
+| Declared with `inline`         | Hint to the compiler to substitute the function body at the call site |
+| Reduces function call overhead | No jump in control                                                    |
+| Increases performance          | Especially for small, frequently called functions                     |
+
+⚠️ Notes:
+
+    Only a request to compiler – not a command. Compiler may ignore the inline keyword.
+
+    Mostly effective for short functions.
+
+    Defined in header files (since they need to be visible at the call site).
+
+⚠️ Limitations:
+
+Inline may be ignored if:
+
+    The function is too large.
+
+    Contains loops, switch, or recursion.
+
+    Has static variables or complex logic.
+
+    Address of the function is taken.
+
+🆚 Inline Function vs Macros:
+
+| Aspect          | Inline Function  | Macro               |
+| --------------- | ---------------- | ------------------- |
+| Type Checking   | Yes              | No                  |
+| Debuggable      | Yes              | No                  |
+| Safer           | Yes              | No                  |
+| Syntax          | `inline` keyword | `#define` directive |
+| Scope Awareness | Respects scope   | Global replacement  |
+
+🧠 Best Practices:
+
+    Use inline for small, frequently used, pure functions.
+
+    Avoid using for large functions or functions with recursion.
+
+    Keep inline functions in header files if needed across multiple translation units.
+
+📁 Example (Header):
+
+// math_utils.h
+#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
+
+inline int cube(int x)
+{
+    return x * x * x;
+}
+
+#endif
