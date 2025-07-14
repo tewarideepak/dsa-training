@@ -1,0 +1,123 @@
+📘 Recursion in C++ – Notes
+
+✅ What is Recursion?
+
+Recursion is a programming technique where a function calls itself to solve a problem.
+
+    Breaks down a problem into smaller sub-problems.
+
+    Each recursive call should bring it closer to a base case.
+
+🧩 Structure of a Recursive Function
+
+return_type function_name(parameters) {
+    if (base_case_condition)
+        return base_case_value;  // Base case
+    else
+        return function_name(modified_parameters);  // Recursive call
+}
+
+🧠 Important Concepts
+
+| Term           | Description                                                        |
+| -------------- | ------------------------------------------------------------------ |
+| Base Case      | The condition at which recursion **stops**.                        |
+| Recursive Case | The part where the function **calls itself** with a smaller input. |
+| Stack Overflow | Occurs when recursion goes too deep without hitting a base case.   |
+| Stack Memory   | Each recursive call uses a **new stack frame** in memory.          |
+
+🔁 Example: Factorial
+
+int factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1; // base case
+    return n * factorial(n - 1); // recursive case
+}
+
+Call Stack:
+
+factorial(4)
+→ 4 * factorial(3)
+→ 3 * factorial(2)
+→ 2 * factorial(1)
+→ returns 1
+
+🔂 Example: Fibonacci Series
+
+int fibonacci(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+⚠️ Exponential time complexity (O(2ⁿ)). Use memoization to optimize.
+
+🔄 Types of Recursion
+
+| Type               | Example Description                                                  |
+| ------------------ | -------------------------------------------------------------------- |
+| **Direct**         | Function calls itself directly.                                      |
+| **Indirect**       | Function A calls B, and B calls A.                                   |
+| **Tail Recursion** | Recursive call is the last thing in the function. (Can be optimized) |
+| **Head Recursion** | Recursive call is made first, then computation is done.              |
+| **Tree Recursion** | Function calls itself multiple times (like in Fibonacci).            |
+
+✅ Tail Recursion Example
+
+void tailRec(int n) {
+    if (n == 0) return;
+    cout << n << " ";
+    tailRec(n - 1);
+}
+
+⛏️ Head Recursion Example
+
+void headRec(int n) {
+    if (n == 0) return;
+    headRec(n - 1);
+    cout << n << " ";
+}
+
+🔍 Common Recursive Problems
+
+    Factorial of a number
+
+    Fibonacci series
+
+    Sum of digits
+
+    Power of a number
+
+    Tower of Hanoi
+
+    Binary Search
+
+    Permutations of string
+
+    Reverse a string/array
+
+    GCD using Euclid's algorithm
+
+    Recursively sort array (Merge Sort, Quick Sort)
+
+🚩 When to Use Recursion
+
+    When the problem has a recursive structure (e.g., divide-and-conquer, backtracking).
+
+    When iterative logic is too complex or less intuitive.
+
+❌ Drawbacks of Recursion
+
+    Memory overhead due to call stack.
+
+    Slower than loops in some cases.
+
+    Risk of stack overflow if not handled properly.
+
+🧠 Tip: Always Ensure
+
+    There's a base case.
+
+    Each recursive call makes progress towards the base case.
+
+    Avoid redundant calls → Use memoization or dynamic programming if needed.
