@@ -43,55 +43,65 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int partition(int arr[], int low, int high)
+int partition(vector<int> &arr, int low, int high)
 {
     int pivot = arr[low];
-    int i = low;
-    int j = high;
+    int i = low - 1;
+    int j = high + 1;
 
-    while (i < j)
+    while (true)
     {
-        while (arr[i] <= pivot && i <= high - 1)
+        // Move right until we find an element >= pivot
+        do
         {
             i++;
-        }
+        } while (arr[i] < pivot);
 
-        while (arr[j] > pivot && j >= low + 1)
+        // Move left until we find an element <= pivot
+        do
         {
             j--;
-        }
-        if (i < j)
-            swap(arr[i], arr[j]);
+        } while (arr[j] > pivot);
+
+        // If two pointers met or crossed
+        if (i >= j)
+            return j;
+
+        // Swap out-of-place elements
+        swap(arr[i], arr[j]);
     }
-    swap(arr[low], arr[j]);
-    return j;
 }
 
-void quickSort(int arr[], int low, int high)
+void quickSortHelper(vector<int> &arr, int low, int high)
 {
     if (low < high)
     {
-        // Partition index
-        int pi = partition(arr, low, high);
-
-        // Recursively sort elements before and after partition
-        quickSort(arr, low, pi);
-        quickSort(arr, pi + 1, high);
+        int p = partition(arr, low, high);
+        quickSortHelper(arr, low, p);
+        quickSortHelper(arr, p + 1, high);
     }
+}
+
+vector<int> quickSort(vector<int> arr)
+{
+    quickSortHelper(arr, 0, arr.size() - 1);
+    return arr;
 }
 
 // 🧪 Example
 
 int main()
 {
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    quickSort(arr, 0, n - 1);
+    vector<int> arr = {9, 9, 9, 8, 2, 3, -6};
+    vector<int> sorted = quickSort(arr);
 
-    for (int a : arr)
+    for (int num : sorted)
     {
-        cout << a << " ";
+        cout << num << " ";
     }
+    cout << endl;
+
+    return 0;
 }
 
 // After sorting: 1 5 7 8 9 10
