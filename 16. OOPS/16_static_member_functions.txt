@@ -1,0 +1,90 @@
+🔹 Static Member Functions in C++ – OOP Notes
+
+A static function in a class is a member function that:
+
+    Belongs to the class rather than any object.
+
+    Can be called without creating an object.
+
+    Can only access static members of the class.
+
+    Does not have access to the this pointer.
+
+🔸 Syntax
+
+class ClassName {
+public:
+    static void staticFunction();
+};
+
+🔸 Key Properties
+
+| Feature                      | Description                                    |
+| ---------------------------- | ---------------------------------------------- |
+| Belongs to class             | Called using `ClassName::function()`           |
+| No object needed             | Doesn't require an instance to be invoked      |
+| Only accesses static members | Cannot access non-static data or methods       |
+| No `this` pointer            | Not tied to any specific instance of the class |
+
+
+🔸 Example
+
+class MathUtils {
+public:
+    static int square(int x) {
+        return x * x;
+    }
+};
+
+int main() {
+    int result = MathUtils::square(5);  // No object needed
+    cout << "Square: " << result;      // Output: 25
+}
+
+🔸 Real-world Use Cases
+
+    Utility or helper functions:
+
+        e.g., Math::add(), Date::isLeapYear()
+
+    Factory methods:
+
+        Creating objects with special logic
+
+    Accessing static data:
+
+        Count of objects created
+
+        Configuration values
+
+🔸 Accessing Static Data in Static Functions
+
+class Counter {
+private:
+    static int count;
+public:
+    Counter() { count++; }
+
+    static int getCount() {
+        return count;  // OK: accessing static member
+    }
+};
+
+int Counter::count = 0;
+
+🚫 Invalid Usage
+
+class Test {
+    int val;
+public:
+    static void show() {
+        cout << val;  // ❌ Error: cannot access non-static member
+    }
+};
+
+✅ Summary
+
+| Access Modifier     | Allowed to access from static function? |
+| ------------------- | --------------------------------------- |
+| `static` member     | ✅ Yes                                   |
+| `non-static` member | ❌ No                                    |

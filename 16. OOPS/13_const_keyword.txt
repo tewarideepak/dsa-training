@@ -1,0 +1,96 @@
+📘 const Keyword in C++ – OOP Notes
+
+The const keyword in C++ is used to define constants, prevent modification, and enforce immutability. It can be applied to variables, pointers, function parameters, member functions, and return types.
+🧾 1. Constant Variables
+
+Declares a variable whose value cannot be changed after initialization.
+
+const int x = 10;
+x = 20; // ❌ Error: x is read-only
+
+🧾 2. const with Pointers
+
+| Type                   | Meaning                                     |
+| ---------------------- | ------------------------------------------- |
+| `const int* ptr`       | Pointer to **const int** (data is const)    |
+| `int* const ptr`       | **const pointer** to int (pointer is const) |
+| `const int* const ptr` | const pointer to const data                 |
+
+
+const int* p1 = &x;     // can't change *p1
+int* const p2 = &x;     // can't change p2
+const int* const p3 = &x; // neither *p3 nor p3 can change
+
+🧾 3. const Function Parameters
+
+Prevents accidental changes inside functions.
+
+void show(const int value) {
+    // value = 10; ❌ Error
+}
+
+Also applies to reference parameters:
+
+void print(const string& name) {
+    cout << name;
+}
+
+🧾 4. const Member Functions
+
+Used in classes to prevent modification of object state.
+
+class Student {
+    string name;
+public:
+    void showName() const {
+        // name = "Alex"; ❌ Error
+        cout << name;
+    }
+};
+
+    Can only call other const member functions inside it.
+
+    Useful when working with const objects.
+
+const Student s;
+s.showName();  // ✅ Only works because showName is a const function
+
+🧾 5. const Objects
+
+Once created, you cannot modify any members (unless they are mutable).
+
+const Student s1;
+s1.name = "John"; // ❌ Error
+
+🧾 6. Return by const
+
+const string getName() {
+    return "Alice";
+}
+
+    Prevents the caller from modifying the returned value.
+
+🧾 7. mutable Keyword (Exception)
+
+Used to allow modification of specific members even in a const object or method.
+
+class Logger {
+    mutable int count = 0;
+public:
+    void log() const {
+        count++; // ✅ allowed due to `mutable`
+    }
+};
+
+🔑 Summary
+
+| Usage                | Effect                                          |
+| -------------------- | ----------------------------------------------- |
+| `const int x = 5;`   | x is constant                                   |
+| `const int* p`       | Cannot change \*p (data const)                  |
+| `int* const p`       | Cannot change pointer p                         |
+| `const int* const p` | Cannot change \*p or p                          |
+| `const Type&` param  | Prevents modification of argument               |
+| `void func() const`  | Function won’t modify object                    |
+| `const Object`       | Cannot modify the object’s members              |
+| `mutable`            | Exception to allow member modification in const |

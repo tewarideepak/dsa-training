@@ -1,0 +1,106 @@
+💣 What is a Destructor?
+
+A destructor is a special member function in C++ that is automatically invoked when an object goes out of scope or is explicitly deleted.
+Its primary role is to release resources that the object may have acquired (e.g., dynamic memory, file handles).
+🧾 Syntax
+
+~ClassName();
+
+    Has the same name as the class but prefixed with a tilde ~
+
+    No return type
+
+    No parameters
+
+    Cannot be overloaded or inherited
+
+🧪 Example
+
+#include <iostream>
+using namespace std;
+
+class Demo {
+public:
+    Demo() {
+        cout << "Constructor called" << endl;
+    }
+
+    ~Demo() {
+        cout << "Destructor called" << endl;
+    }
+};
+
+int main() {
+    Demo d;
+    // When main ends, destructor will be called
+    return 0;
+}
+
+🖨️ Output:
+
+Constructor called  
+Destructor called
+
+🔑 Key Points
+
+| Property                    | Details                                                 |
+| --------------------------- | ------------------------------------------------------- |
+| Auto invocation             | Called when object goes out of scope or deleted         |
+| No parameters / return type | Signature is fixed (`~ClassName()`)                     |
+| Not overloadable            | Only one destructor per class                           |
+| Used for cleanup            | Memory deallocation, closing files, releasing resources |
+| Works with delete           | Automatically called on objects destroyed via `delete`  |
+
+
+⚠️ When to Define Custom Destructors
+
+You must define a custom destructor if your class:
+
+    Allocates dynamic memory using new
+
+    Opens files or sockets
+
+    Uses manual resource management
+
+🧱 Destructor in Dynamic Allocation Example
+
+class Sample {
+public:
+    int* data;
+
+    Sample(int val) {
+        data = new int(val);
+    }
+
+    ~Sample() {
+        delete data; // Prevent memory leak
+        cout << "Destructor called" << endl;
+    }
+};
+
+int main() {
+    Sample* s = new Sample(10);
+    delete s; // Destructor is called here
+}
+
+🚫 Without Destructor (in dynamic memory)
+
+If destructor is not defined, memory/resources may leak:
+
+class Leaky {
+public:
+    int* ptr;
+    Leaky() { ptr = new int[100]; }
+    // No destructor
+};
+
+Calling delete obj will not release ptr's memory → memory leak.
+
+🧠 Summary
+
+| Concept        | Destructor (`~ClassName()`)       |
+| -------------- | --------------------------------- |
+| Purpose        | Cleanup before object destruction |
+| Auto-called    | Yes, at scope end or `delete`     |
+| Dynamic Memory | Must free memory in destructor    |
+| Count          | Only one allowed per class        |

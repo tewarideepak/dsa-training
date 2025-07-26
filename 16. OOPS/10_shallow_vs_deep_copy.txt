@@ -1,0 +1,113 @@
+🧠 Shallow Copy vs Deep Copy in C++ – OOP Notes
+
+When copying objects in C++, especially those that use dynamic memory, it's important to understand the difference between shallow copy and deep copy.
+🔍 1. Shallow Copy
+✅ Definition:
+
+A shallow copy copies the values of member variables as-is. For pointers, this means copying the address, not the actual memory content.
+
+📌 Key Points:
+| Feature          | Shallow Copy                                           |
+| ---------------- | ------------------------------------------------------ |
+| Pointer members  | Copies the pointer address only                        |
+| Memory Ownership | Both objects share the **same memory**                 |
+| Side Effect      | Changes in one object affect the other                 |
+| Risk             | Double deletion → ❌ program crash                      |
+| Default in C++   | ✅ Yes (default copy constructor & assignment operator) |
+
+
+🧪 Example of Shallow Copy:
+
+class Sample {
+public:
+    int* data;
+    Sample(int val) {
+        data = new int(val);
+    }
+
+    ~Sample() {
+        delete data;
+    }
+
+    void show() {
+        cout << "Value: " << *data << endl;
+    }
+};
+
+int main() {
+    Sample s1(10);
+    Sample s2 = s1;   // shallow copy — both point to same memory!
+    *s2.data = 20;
+
+    s1.show(); // Output: 20
+    s2.show(); // Output: 20
+    // Destructor called twice on same memory => crash
+}
+
+🔐 2. Deep Copy
+✅ Definition:
+
+A deep copy creates a completely independent copy of all member variables, including allocating new memory and copying the actual content.
+
+📌 Key Points:
+
+| Feature          | Deep Copy                                    |
+| ---------------- | -------------------------------------------- |
+| Pointer members  | New memory is allocated                      |
+| Memory Ownership | Each object has its **own copy**             |
+| Side Effect      | Changes in one object don’t affect the other |
+| Risk             | ❌ No risk of double deletion                 |
+| Default in C++   | ❌ No, you must define manually               |
+
+
+🧪 Example of Deep Copy:
+
+class Sample {
+public:
+    int* data;
+    Sample(int val) {
+        data = new int(val);
+    }
+
+    // Deep copy constructor
+    Sample(const Sample& s) {
+        data = new int(*s.data);
+    }
+
+    ~Sample() {
+        delete data;
+    }
+
+    void show() {
+        cout << "Value: " << *data << endl;
+    }
+};
+
+int main() {
+    Sample s1(10);
+    Sample s2 = s1;   // deep copy — separate memory
+
+    *s2.data = 20;
+
+    s1.show(); // Output: 10
+    s2.show(); // Output: 20
+}
+
+⚖️ Comparison Table
+
+| Feature               | Shallow Copy                           | Deep Copy                              |
+| --------------------- | -------------------------------------- | -------------------------------------- |
+| Copies pointer values | ✅ Yes                                  | ❌ No, copies pointed-to values instead |
+| Independent memory    | ❌ No                                   | ✅ Yes                                  |
+| Memory efficiency     | ✅ More efficient (less memory)         | ❌ More memory used                     |
+| Safety                | ❌ Risk of double free/dangling pointer | ✅ Safe                                 |
+| Used by default       | ✅ Yes (compiler-generated)             | ❌ No (manual implementation needed)    |
+
+
+📌 Summary
+
+    🔄 Shallow Copy: Copies addresses → shared memory → risky.
+
+    💡 Deep Copy: Allocates new memory → fully independent → safe.
+
+    🚫 Always use deep copy when your class allocates dynamic memory (e.g. new, malloc).

@@ -1,0 +1,108 @@
+📋 Copy Constructor in C++ – OOP Notes
+
+A Copy Constructor in C++ is a special constructor used to create a new object as a copy of an existing object. It enables member-wise copying of data.
+🔹 Definition
+
+A copy constructor is invoked:
+
+    When an object is initialized from another object of the same class.
+
+    When an object is passed by value to a function.
+
+    When an object is returned by value from a function.
+
+📌 Syntax
+
+ClassName(const ClassName& obj);
+
+🔧 Example
+
+class Person {
+    string name;
+public:
+    Person(string n) : name(n) {}
+    
+    // Copy Constructor
+    Person(const Person& p) {
+        name = p.name;
+        cout << "Copy constructor called\n";
+    }
+
+    void show() {
+        cout << "Name: " << name << endl;
+    }
+};
+
+int main() {
+    Person p1("Alice");
+    Person p2 = p1;   // Copy constructor called
+    p2.show();
+}
+
+🧠 Key Concepts
+| Feature            | Copy Constructor                                    |
+| ------------------ | --------------------------------------------------- |
+| Parameter          | `const ClassName&` – to avoid modification          |
+| Default version    | C++ provides a **default shallow copy constructor** |
+| When user-defined? | Needed for deep copying (e.g., pointers)            |
+| Memory handling    | Crucial when class allocates **dynamic memory**     |
+
+
+⚠️ Shallow Copy vs Deep Copy
+
+| Type             | Description                                                                       |
+| ---------------- | --------------------------------------------------------------------------------- |
+| **Shallow Copy** | Copies the address (pointer), not the content. Both objects point to same memory. |
+| **Deep Copy**    | Creates a **new copy of the memory**, so both objects are independent.            |
+
+
+🧪 Shallow Copy Problem Example:
+
+class Sample {
+    int* data;
+public:
+    Sample(int val) {
+        data = new int(val);
+    }
+
+    // Default copy constructor causes shallow copy!
+    void show() {
+        cout << "Data: " << *data << endl;
+    }
+
+    ~Sample() {
+        delete data;
+    }
+};
+
+int main() {
+    Sample s1(5);
+    Sample s2 = s1;  // 🚫 Same memory - double delete crash
+}
+
+✅ Fix: Define Deep Copy Constructor
+
+Sample(const Sample& s) {
+    data = new int(*s.data);  // deep copy
+}
+
+🧪 Copy Constructor Use Cases
+
+| Scenario                              | Copy Constructor Called?        |
+| ------------------------------------- | ------------------------------- |
+| `Class obj2 = obj1;`                  | ✅ Yes                           |
+| Passing object by value               | ✅ Yes                           |
+| Returning object by value             | ✅ Yes                           |
+| Passing by reference (`const &`)      | ❌ No                            |
+| Assigning already constructed objects | ❌ No (assignment operator used) |
+
+🛠️ Summary
+
+| Feature            | Value                             |
+| ------------------ | --------------------------------- |
+| Name               | Same as class                     |
+| Parameters         | `const ClassName&`                |
+| Return type        | None                              |
+| Purpose            | Initialize a new object as a copy |
+| Default available? | Yes (shallow copy)                |
+| Define manually?   | Yes, for deep copy                |

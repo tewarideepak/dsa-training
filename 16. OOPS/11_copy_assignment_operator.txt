@@ -1,0 +1,101 @@
+🔄 What is Copy Assignment Operator?
+
+The copy assignment operator is used to copy the contents of one existing object into another existing object of the same class.
+
+ClassName& operator=(const ClassName& other);
+
+    🔧 It’s automatically provided by the compiler if you don’t define it yourself.
+
+🧱 Syntax & Example
+
+class Sample {
+public:
+    int* data;
+
+    // Constructor
+    Sample(int val) {
+        data = new int(val);
+    }
+
+    // Copy Assignment Operator
+    Sample& operator=(const Sample& other) {
+        if (this != &other) { // Prevent self-assignment
+            delete data; // Clean old data
+            data = new int(*other.data); // Deep copy
+        }
+        return *this;
+    }
+
+    void show() {
+        cout << "Value: " << *data << endl;
+    }
+
+    ~Sample() {
+        delete data;
+    }
+};
+
+int main() {
+    Sample a(10);
+    Sample b(20);
+    b = a; // Copy assignment
+
+    b.show(); // 10
+}
+
+🔑 Key Concepts
+
+| Concept                      | Explanation                                                           |
+| ---------------------------- | --------------------------------------------------------------------- |
+| 🧠 Used when                 | Assigning one object to another (`a = b;`)                            |
+| 🔁 Difference from Copy Ctor | Copy ctor: `Class b = a;` (initialization), Copy assignment: `b = a;` |
+| 🔄 Self-assignment check     | `if (this != &other)` avoids issues like deleting own memory          |
+| 🧹 Delete old memory         | Prevent memory leaks (only needed for dynamic memory)                 |
+| 🪪 Return by reference       | Enables chaining like `a = b = c;`                                    |
+| ⚠️ Compiler-generated        | Performs **shallow copy** by default                                  |
+
+
+🧪 Output Example with Deep Copy
+
+Sample a(100);
+Sample b(200);
+
+b = a;       // calls copy assignment
+*b.data = 300;
+
+a.show();    // Output: 100 (unchanged)
+b.show();    // Output: 300
+
+✔️ a and b are now independent.
+❌ Without Deep Copy (Default)
+
+If you don’t define the copy assignment operator:
+
+    Shallow copy occurs.
+
+    Both objects point to the same memory.
+
+    Leads to double delete or unexpected modification.
+
+✅ Best Practices
+
+    Always define a custom copy assignment operator if your class manages dynamic memory.
+
+    Follow Rule of Three:
+
+        Define:
+
+            Destructor
+
+            Copy Constructor
+
+            Copy Assignment Operator
+
+🧪 Memory Flow (Deep Copy)
+
+Before:          a.data → [100]    b.data → [200]
+
+After:  b = a;   a.data → [100]    b.data → [100 (copied)]
+
+
+✔️ Two different memory blocks with same value.

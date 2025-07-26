@@ -1,0 +1,83 @@
+🛡️ Access Modifiers in C++ – Notes
+
+Access modifiers (also known as access specifiers) in C++ control the visibility and accessibility of class members (data and functions).
+
+📌 Types of Access Modifiers
+
+| Access Specifier | Accessible Within Class | Derived Class | Outside Class |
+| ---------------- | ----------------------- | ------------- | ------------- |
+| `public`         | ✅ Yes                   | ✅ Yes         | ✅ Yes         |
+| `protected`      | ✅ Yes                   | ✅ Yes         | ❌ No          |
+| `private`        | ✅ Yes                   | ❌ No          | ❌ No          |
+
+
+🔹 1. public
+
+    Members are accessible from anywhere: within the class, outside the class, and in derived classes.
+
+class Example {
+public:
+    int x;
+};
+
+Example obj;
+obj.x = 10;  // ✅ Allowed
+
+🔹 2. private
+
+    Members are only accessible within the class.
+
+    Cannot be accessed by derived classes or external functions.
+
+class Example {
+private:
+    int x;
+public:
+    void setX(int val) { x = val; }
+    int getX() { return x; }
+};
+
+Example obj;
+// obj.x = 10; ❌ Error
+obj.setX(10); // ✅ OK
+
+🔹 3. protected
+
+    Accessible within the class and its derived classes, but not outside the class.
+
+class Base {
+protected:
+    int val;
+};
+
+class Derived : public Base {
+public:
+    void setVal(int v) {
+        val = v; // ✅ OK
+    }
+};
+
+Derived d;
+// d.val = 5; ❌ Error
+
+🧱 Default Access Modifier
+
+    Inside a class: members are private by default.
+
+    Inside a struct: members are public by default.
+
+class MyClass {
+    int x;      // private by default
+};
+
+struct MyStruct {
+    int x;      // public by default
+};
+
+🔒 Summary Table
+
+| Modifier    | Within Class | Derived Class | Outside Class |
+| ----------- | ------------ | ------------- | ------------- |
+| `public`    | ✅            | ✅             | ✅             |
+| `protected` | ✅            | ✅             | ❌             |
+| `private`   | ✅            | ❌             | ❌             |

@@ -1,0 +1,181 @@
+📌 What is OOPS?
+
+Object-Oriented Programming System (OOPS) is a programming paradigm based on the concept of objects and classes, aimed at increasing code reusability, modularity, and extensibility.
+
+🎯 4 Core Principles of OOPS
+| Principle         | Description                                                                            |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| **Encapsulation** | Wrapping data and code into a single unit (class) to hide internal details.            |
+| **Abstraction**   | Hiding complex implementation details and showing only essential features.             |
+| **Inheritance**   | One class (child) can inherit features (properties and methods) from another (parent). |
+| **Polymorphism**  | Ability to take many forms; same function behaves differently in different contexts.   |
+
+
+🔹 1. Class and Object
+
+    Class: Blueprint for creating objects (user-defined data type).
+
+    Object: Instance of a class.
+
+class Car {
+public:
+    string brand;
+    void start() { cout << "Car started"; }
+};
+
+int main() {
+    Car myCar;
+    myCar.start();
+}
+
+🔹 2. Encapsulation
+
+    Achieved using access specifiers: private, public, protected.
+
+    Keeps data safe from outside interference.
+
+class BankAccount {
+private:
+    int balance;
+public:
+    void setBalance(int b) { balance = b; }
+    int getBalance() { return balance; }
+};
+
+🔹 3. Abstraction
+
+    Focuses on what an object does, not how it does it.
+
+    Implemented via abstract classes or interfaces (in pure OOP).
+
+class AbstractDevice {
+public:
+    virtual void operate() = 0; // Pure virtual function
+};
+
+🔹 4. Inheritance
+
+    Reuse code by inheriting properties/methods from another class.
+
+    Types:
+
+        Single
+
+        Multilevel
+
+        Multiple
+
+        Hierarchical
+
+        Hybrid
+
+class Animal {
+public:
+    void speak() { cout << "Animal speaks"; }
+};
+
+class Dog : public Animal {
+    // inherits speak()
+};
+
+🔹 5. Polymorphism
+a. Compile-time (Static) Polymorphism
+
+    Function Overloading: Same function name, different parameter types/counts.
+
+    Operator Overloading: Redefining operators for user-defined types.
+
+class Print {
+public:
+    void show(int x) { cout << x; }
+    void show(string s) { cout << s; }
+};
+
+b. Run-time (Dynamic) Polymorphism
+
+    Function Overriding using virtual functions.
+
+    Base class pointer calls derived class method.
+
+class Base {
+public:
+    virtual void show() { cout << "Base"; }
+};
+
+class Derived : public Base {
+public:
+    void show() override { cout << "Derived"; }
+};
+
+🔹 6. Access Specifiers
+
+| Specifier   | Accessible Within Class | Derived Class | Outside Class |
+| ----------- | ----------------------- | ------------- | ------------- |
+| `public`    | ✅                       | ✅             | ✅             |
+| `protected` | ✅                       | ✅             | ❌             |
+| `private`   | ✅                       | ❌             | ❌             |
+
+
+🔹 7. Constructor & Destructor
+
+    Constructor: Special method called when object is created.
+
+    Destructor: Called automatically when object goes out of scope.
+
+class Test {
+public:
+    Test() { cout << "Constructor called"; }
+    ~Test() { cout << "Destructor called"; }
+};
+
+🔹 8. this Pointer
+
+    Refers to the current object.
+
+class A {
+public:
+    int x;
+    void setX(int x) {
+        this->x = x;
+    }
+};
+
+🔹 9. Friend Function
+
+    A function declared as a friend of a class can access its private/protected members.
+
+class Box {
+private:
+    int width;
+public:
+    friend void printWidth(Box b);
+};
+
+🔹 10. Virtual Functions & V-Table
+
+    Supports runtime polymorphism.
+
+    virtual keyword ensures correct method is invoked for the object type.
+
+    V-Table: Table of function pointers used for dynamic dispatch.
+
+🔹 11. Abstract Class
+
+    A class with at least one pure virtual function.
+
+    Cannot be instantiated directly.
+
+class Shape {
+public:
+    virtual void draw() = 0; // Pure virtual
+};
+
+✅ Benefits of OOP
+
+    Code reusability through inheritance.
+
+    Modularity via classes/objects.
+
+    Flexibility and scalability.
+
+    Easier debugging and maintenance.

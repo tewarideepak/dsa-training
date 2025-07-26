@@ -1,0 +1,95 @@
+🎓 Static vs Dynamic Memory Allocation in OOPS (C++)
+
+In OOP, memory allocation can occur for objects, data members, or methods, and it impacts how objects are created, managed, and destroyed.
+🔹 1. Static Allocation in OOP
+🧱 Meaning:
+
+Objects or class members are created with known size at compile time, and memory is allocated on the stack or globally.
+✅ Example: Stack Allocation (Automatic Object)
+
+class Student {
+public:
+    void display() {
+        cout << "Student object on stack\n";
+    }
+};
+
+int main() {
+    Student s1;  // statically allocated object
+    s1.display();
+}
+
+✅ Static Data Members
+
+class Counter {
+public:
+    static int count;  // static: shared across all objects
+};
+
+int Counter::count = 0;  // memory allocated once globally
+
+🔹 2. Dynamic Allocation in OOP
+
+🧲 Meaning:
+
+Objects or arrays of objects are allocated on the heap using new. Their size or existence can be determined during runtime.
+✅ Example: Heap Allocation (Dynamic Object)
+
+class Student {
+public:
+    void display() {
+        cout << "Student object on heap\n";
+    }
+};
+
+int main() {
+    Student* s1 = new Student();  // dynamically allocated
+    s1->display();
+
+    delete s1;  // deallocate
+}
+
+⚖️ Static vs Dynamic in OOP (Object-Oriented Terms)
+
+| Feature         | Static Allocation                     | Dynamic Allocation                    |
+| --------------- | ------------------------------------- | ------------------------------------- |
+| Object Creation | On **stack** or as global object      | On **heap** using `new`               |
+| Lifetime        | Limited to **scope** (auto destroyed) | Controlled by programmer (`delete`)   |
+| Flexibility     | Fixed at compile time                 | Flexible at runtime                   |
+| Static Members  | Shared across all instances           | Not tied to specific object instances |
+| Example         | `Student s;`                          | `Student* s = new Student();`         |
+
+
+📌 Summary with OOP Concepts
+
+| Concept           | Static Allocation                                     | Dynamic Allocation                           |
+| ----------------- | ----------------------------------------------------- | -------------------------------------------- |
+| **Encapsulation** | Both support it                                       | Both support it                              |
+| **Abstraction**   | No direct impact                                      | No direct impact                             |
+| **Inheritance**   | Objects of derived classes can be stack-allocated     | Can create derived class objects dynamically |
+| **Polymorphism**  | Limited (no virtual behavior with stack obj pointers) | Fully supported using base class pointers    |
+
+
+👀 Polymorphism Needs Dynamic Allocation
+
+To achieve runtime polymorphism, we often need dynamic allocation:
+
+class Animal {
+public:
+    virtual void speak() {
+        cout << "Animal speaks\n";
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override {
+        cout << "Dog barks\n";
+    }
+};
+
+int main() {
+    Animal* a = new Dog();  // dynamic allocation, base pointer to derived
+    a->speak();             // prints: Dog barks
+    delete a;
+}

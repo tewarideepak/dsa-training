@@ -1,0 +1,85 @@
+🔍 this Keyword in C++ – OOP Notes
+
+The this keyword in C++ is a special pointer available inside non-static member functions of a class. It points to the current object (the object that invoked the method).
+
+📌 Key Features of this
+
+| Feature   | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| Type      | Pointer to the current object                                |
+| Use case  | Access current object's members, especially when names clash |
+| Scope     | Only inside **non-static** member functions                  |
+| Syntax    | `this->member` or `(*this).member`                           |
+| Points to | The memory address of the object invoking the function       |
+
+
+🧪 Example 1: Disambiguate Variable Names
+
+class Person {
+    string name;
+public:
+    void setName(string name) {
+        this->name = name; // Resolves conflict between parameter and member
+    }
+
+    void showName() {
+        cout << "Name: " << this->name << endl;
+    }
+};
+
+🔍 Without this, you'd just assign the parameter to itself:
+
+// Wrong: name = name;  → both refer to parameter
+
+🧪 Example 2: Returning the Current Object
+
+this is often used to return the current object from a method (useful in method chaining):
+
+class Counter {
+    int count;
+public:
+    Counter() : count(0) {}
+
+    Counter* increment() {
+        count++;
+        return this;
+    }
+
+    void show() {
+        cout << "Count: " << count << endl;
+    }
+};
+
+int main() {
+    Counter c;
+    c.increment()->increment()->show();  // Method chaining using `this`
+}
+
+🧠 In-depth Notes
+
+| Concept                           | Explanation                                                |
+| --------------------------------- | ---------------------------------------------------------- |
+| `this` pointer type               | `ClassName* const this` (i.e., pointer to constant object) |
+| In const methods                  | The type becomes `const ClassName* const this`             |
+| Not available in static functions | Because static functions are not tied to any object        |
+
+
+🚫 Where this Cannot Be Used
+
+    Inside static member functions – because these are not tied to an object.
+
+class A {
+public:
+    static void show() {
+        // cout << this; ❌ Error: invalid use of 'this'
+    }
+};
+
+📌 Summary
+
+| Property         | Value                                                  |
+| ---------------- | ------------------------------------------------------ |
+| Type             | Pointer to current object (`Class*`)                   |
+| Used for         | Disambiguation, method chaining, object return         |
+| Availability     | Only inside non-static member functions                |
+| Common Use Cases | Variable shadowing, returning `*this`, pointer context |

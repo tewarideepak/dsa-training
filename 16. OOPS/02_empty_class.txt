@@ -1,0 +1,55 @@
+📝 Empty Class in C++
+
+An empty class in C++ is a class that contains no data members or member functions (except the ones the compiler implicitly adds).
+📌 Syntax Example
+
+class Empty {
+    // No members
+};
+
+int main() {
+    Empty e;
+    return 0;
+}
+
+📌 Key Points
+
+    ✅ Size of an Empty Class object is NOT zero
+
+        Even though the class is empty, the compiler assigns at least 1 byte to ensure each object has a unique address.
+
+cout << sizeof(Empty);  // Output: 1
+
+✅ Why 1 byte?
+
+    To ensure that two different objects of the same empty class have distinct memory addresses.
+
+Empty a, b;
+cout << &a << " " << &b;  // Different addresses
+
+✅ Can still have constructors/destructors
+
+    Even an empty class can have a constructor or destructor added later.
+
+class Empty {
+public:
+    Empty() { cout << "Constructor called"; }
+};
+
+✅ Used in Templates / Marker Interfaces
+
+    Often used for type tagging, traits, or as placeholders in template metaprogramming.
+
+    template <typename T>
+    class IsEmpty {
+        static const bool value = sizeof(T) == 1;
+    };
+
+📌 Summary
+
+| Feature      | Value                           |
+| ------------ | ------------------------------- |
+| Data members | None                            |
+| Functions    | None                            |
+| Size         | At least 1 byte                 |
+| Use cases    | Type traits, markers, templates |

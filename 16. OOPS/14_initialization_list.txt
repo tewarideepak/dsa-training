@@ -1,0 +1,113 @@
+📘 Initialization List in C++ – OOP Notes
+
+In C++, initialization lists are used to initialize data members of a class before the constructor body executes. This is especially important for:
+
+    const data members
+
+    reference members
+
+    members of classes that don't have default constructors
+
+✅ Syntax:
+
+class ClassName {
+    int a;
+    const int b;
+public:
+    ClassName(int x, int y) : a(x), b(y) {
+        // Constructor body
+    }
+};
+
+🔍 Why Use Initialization Lists?
+
+| Case                   | Reason                                                |
+| ---------------------- | ----------------------------------------------------- |
+| `const` members        | Must be initialized during construction               |
+| `reference` members    | Must be initialized upon creation                     |
+| Base class constructor | Must be called explicitly                             |
+| Performance            | More efficient than assigning in the constructor body |
+
+
+🧪 Example 1: Initializing const and reference
+
+class Demo {
+    const int id;
+    int& ref;
+public:
+    Demo(int x, int& y) : id(x), ref(y) {
+        // id and ref must be initialized here
+    }
+};
+
+🧪 Example 2: Initializing Base Class
+
+class Base {
+public:
+    Base(int x) { cout << "Base " << x << endl; }
+};
+
+class Derived : public Base {
+public:
+    Derived(int y) : Base(y) {
+        cout << "Derived " << y << endl;
+    }
+};
+
+🧪 Example 3: Initializing Class Members
+
+class Point {
+    int x, y;
+public:
+    Point(int x1, int y1) : x(x1), y(y1) {}
+};
+
+Equivalent but less efficient:
+
+Point(int x1, int y1) {
+    x = x1;  // Assignment, not initialization
+    y = y1;
+}
+
+🧪 Example 4: Member Objects without Default Constructor
+
+class Engine {
+public:
+    Engine(int power) { cout << "Engine: " << power << endl; }
+};
+
+class Car {
+    Engine engine;
+public:
+    Car(int power) : engine(power) {}
+};
+
+Without the initialization list, engine(power) won’t compile if Engine has no default constructor.
+⚠️ Important Notes
+
+    Members are always initialized in the order they are declared in the class, not in the order of the initializer list.
+
+    class A {
+        int x;
+        int y;
+    public:
+        A(int a, int b) : y(b), x(a) {} // x will still be initialized first
+    };
+
+    Initializer list is mandatory for:
+
+        const data members
+
+        reference members
+
+        Non-default constructible member objects
+
+🔑 Summary
+
+| Use Case                                | Initialization List Required?        |
+| --------------------------------------- | ------------------------------------ |
+| Basic types (`int`, `float`)            | Not required, but better performance |
+| `const` members                         | ✅ Yes                                |
+| References (`&`)                        | ✅ Yes                                |
+| Objects with parameterized constructors | ✅ Yes                                |
+| Base class constructors                 | ✅ Yes if no default constructor      |

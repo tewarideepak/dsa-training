@@ -1,0 +1,86 @@
+ChatGPT said:
+🔹 static Keyword in C++ – OOP Notes
+
+The static keyword in C++ has multiple meanings depending on its context. In Object-Oriented Programming (OOP), it's often used for class-level data or functions.
+🔸 1. Static Data Members (Class Variables)
+
+    Shared across all objects of the class.
+
+    Only one copy exists in memory, regardless of the number of objects.
+
+class Counter {
+public:
+    static int count;
+    Counter() { count++; }
+};
+
+int Counter::count = 0; // Definition outside the class
+
+✅ Use Case: Tracking how many objects of a class have been created.
+
+🔸 2. Static Member Functions
+
+    Can be called without creating an object.
+
+    Can only access static members (data/functions).
+
+    Does not have access to this pointer.
+
+class Math {
+public:
+    static int add(int a, int b) {
+        return a + b;
+    }
+};
+
+// Usage
+int result = Math::add(3, 4);
+
+🔸 3. Static Inside Functions (Local Static Variables)
+
+    Initialized only once, retains its value between function calls.
+
+    Useful for caching or tracking inside a function.
+
+void callCount() {
+    static int count = 0;
+    count++;
+    cout << "Called " << count << " times\n";
+}
+
+🔸 4. Static Global Variables or Functions (File Scope)
+
+    If declared at file-level, it limits the visibility to that file (compilation unit).
+
+    Used in modular programming to avoid naming conflicts.
+
+static int fileLevelVariable = 5; // only accessible in this file
+
+✅ Summary Table
+
+| Context                    | Meaning                                                           |
+| -------------------------- | ----------------------------------------------------------------- |
+| Static data member         | Shared across all objects of a class                              |
+| Static member function     | Belongs to the class, not to any object                           |
+| Static local variable      | Retains value between function calls                              |
+| Static global (file scope) | Limits visibility of variable/function to the current source file |
+
+
+🔁 Example: Static in OOP Context
+
+class Student {
+    static int total_students;
+public:
+    Student() { total_students++; }
+
+    static int getStudentCount() {
+        return total_students;
+    }
+};
+
+int Student::total_students = 0;
+
+✅ Usage:
+
+Student s1, s2;
+cout << Student::getStudentCount();  // Output: 2

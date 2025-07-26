@@ -1,0 +1,80 @@
+📝 Getters and Setters in C++
+
+Getters and Setters are special class methods used to access (get) and update (set) private data members of a class, providing encapsulation and control over how data is read or modified.
+
+🔒 Why Use Getters and Setters?
+
+    To hide internal representation of data.
+
+    To validate or control access to variables.
+
+    To allow read-only or write-only access.
+
+    To maintain flexibility for future changes without affecting external code.
+
+📦 Example
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    // Setter for name
+    void setName(string n) {
+        name = n;
+    }
+
+    // Getter for name
+    string getName() {
+        return name;
+    }
+
+    // Setter for age
+    void setAge(int a) {
+        if (a >= 0)
+            age = a;
+    }
+
+    // Getter for age
+    int getAge() {
+        return age;
+    }
+};
+
+Usage:
+
+int main() {
+    Person p;
+    p.setName("Alice");
+    p.setAge(25);
+
+    cout << p.getName() << " is " << p.getAge() << " years old.";
+}
+
+🔎 Key Features
+
+| Feature                   | Description                                         |
+| ------------------------- | --------------------------------------------------- |
+| **Encapsulation**         | Keeps data members private and controlled.          |
+| **Validation**            | You can add conditions in setters (e.g., age ≥ 0).  |
+| **Read-only Properties**  | Provide only getter if value should not be changed. |
+| **Write-only Properties** | Provide only setter if value should not be read.    |
+
+
+🚫 Direct Access (Not Recommended)
+
+class BadExample {
+public:
+    int x;  // Not safe
+};
+
+    No control over value assignment or access.
+
+    Breaks encapsulation principle.
+
+🛡️ Best Practice
+
+    Always keep data private/protected.
+
+    Use public getters/setters to access or modify them.

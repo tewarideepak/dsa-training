@@ -1,0 +1,134 @@
+🏗️ Constructor in C++ – OOP Notes
+
+A constructor is a special member function in a class that is automatically called when an object is created. It is primarily used to initialize objects.
+
+🔹 Key Properties of a Constructor
+
+| Feature            | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| Name               | Same as the class name                                |
+| Return Type        | ❌ No return type (not even `void`)                    |
+| Call Time          | Automatically called when object is created           |
+| Overloading        | ✅ Can be overloaded                                   |
+| Inheritance        | ✅ Supports constructor chaining via `: base()` syntax |
+| Default Parameters | ✅ Supported                                           |
+
+
+🔧 Syntax
+
+class MyClass {
+public:
+    MyClass();  // Constructor declaration
+};
+
+MyClass::MyClass() {
+    // Constructor definition
+}
+
+🔹 Types of Constructors
+
+1. ✅ Default Constructor
+
+    No parameters.
+
+    Provided automatically by the compiler if no constructor is defined.
+
+class A {
+public:
+    A() {
+        cout << "Default Constructor Called\n";
+    }
+};
+
+2. ✅ Parameterized Constructor
+
+    Takes arguments to initialize members.
+
+class A {
+    int x;
+public:
+    A(int val) {
+        x = val;
+    }
+};
+
+3. ✅ Copy Constructor
+
+    Creates a new object as a copy of an existing object.
+
+class A {
+    int x;
+public:
+    A(int val) { x = val; }
+    A(const A& obj) {
+        x = obj.x;
+    }
+};
+
+4. ✅ Constructor Overloading
+
+    Multiple constructors with different parameter lists.
+
+class A {
+public:
+    A() { cout << "Default\n"; }
+    A(int x) { cout << "Parameterized\n"; }
+};
+
+5. ✅ Delegating Constructor (C++11+)
+
+    One constructor calls another constructor in the same class.
+
+class A {
+    int x;
+public:
+    A() : A(0) {}             // delegates to A(int)
+    A(int val) { x = val; }
+};
+
+🔒 Private Constructor
+
+Used in singleton design pattern to prevent object creation from outside.
+
+class Singleton {
+private:
+    Singleton() {}
+public:
+    static Singleton getInstance() {
+        static Singleton instance;
+        return instance;
+    }
+};
+
+📦 Constructor in Inheritance
+
+class Base {
+public:
+    Base() { cout << "Base\n"; }
+};
+
+class Derived : public Base {
+public:
+    Derived() { cout << "Derived\n"; }
+};
+
+📌 Base class constructor is always called before the derived class constructor.
+
+❌ Constructor vs Function
+
+| Feature     | Constructor                          | Normal Function          |
+| ----------- | ------------------------------------ | ------------------------ |
+| Name        | Same as class                        | Any valid identifier     |
+| Return type | No return type                       | Can have any return type |
+| Call        | Automatically when object is created | Manually by user         |
+
+
+🧠 Summary
+
+    Used to initialize object state.
+
+    Can be overloaded.
+
+    Supports inheritance and polymorphism (via base class constructor calls).
+
+    No return type.
