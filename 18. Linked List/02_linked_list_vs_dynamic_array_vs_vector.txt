@@ -1,0 +1,53 @@
+📊 Comparison Table
+
+| Feature/Aspect            | **Linked List**           | **Dynamic Array (e.g., `new int[n]`)** | **C++ Vector (`std::vector`)** |
+| ------------------------- | ------------------------- | -------------------------------------- | ------------------------------ |
+| **Memory Layout**         | Non-contiguous (nodes)    | Contiguous                             | Contiguous                     |
+| **Access Time**           | O(n) (no random access)   | O(1) for index                         | O(1)                           |
+| **Insertion (end)**       | O(n)                      | O(1) if space; O(n) with reallocation  | O(1) amortized                 |
+| **Insertion (middle)**    | O(n)                      | O(n)                                   | O(n)                           |
+| **Insertion (beginning)** | O(1)                      | O(n)                                   | O(n)                           |
+| **Deletion (end)**        | O(n)                      | O(1) if last; O(n) otherwise           | O(1) if `pop_back()`           |
+| **Deletion (middle)**     | O(n)                      | O(n)                                   | O(n)                           |
+| **Deletion (beginning)**  | O(1)                      | O(n)                                   | O(n)                           |
+| **Memory Overhead**       | High (extra pointer/node) | Low                                    | Slightly more than array       |
+| **Cache Locality**        | Poor                      | Excellent                              | Excellent                      |
+| **Size Management**       | Manual                    | Manual                                 | Automatic resizing             |
+| **Standard Support**      | `std::list`               | Low-level (`new/delete`)               | `std::vector<T>`               |
+| **Resizing Cost**         | No reallocation           | High (copy entire array)               | Amortized O(1)                 |
+
+
+📌 Summary Notes
+🔷 Linked List
+
+    Good for frequent insertions/deletions at front/middle.
+
+    No random access; slow traversal.
+
+    High memory overhead (each node stores a pointer).
+
+🔷 Dynamic Array
+
+    Manually handled array using new and delete.
+
+    Fast access, but resizing and insert/delete are costly.
+
+    Risk of memory leaks if not handled properly.
+
+🔷 Vector (std::vector)
+
+    Dynamic array with automatic resizing and RAII.
+
+    Best for most use cases unless frequent middle insertions.
+
+    Supports many STL operations (e.g., sort, push_back, iterators).
+
+✅ When to Use What?
+
+| Scenario                          | Best Option          |
+| --------------------------------- | -------------------- |
+| Frequent insert/delete at front   | Linked List          |
+| Random access needed              | Vector/Dynamic Array |
+| Unknown/variable size container   | Vector               |
+| Memory-critical + fixed size      | Dynamic Array        |
+| STL compatibility and ease of use | Vector               |

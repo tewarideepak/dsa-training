@@ -1,0 +1,111 @@
+🧠 Linked List in C++ (DSA Notes)
+
+A linked list is a linear data structure in which elements (nodes) are not stored in contiguous memory. Each node contains:
+
+    Data
+
+    Pointer (reference) to the next node
+
+🧱 Types of Linked Lists
+
+| Type                     | Description                                         |
+| ------------------------ | --------------------------------------------------- |
+| **Singly Linked List**   | Each node points to **next** node only              |
+| **Doubly Linked List**   | Each node points to **next** and **previous** nodes |
+| **Circular Linked List** | Last node points back to the **first** node         |
+
+
+✅ Singly Linked List – Structure in C++
+
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+🔁 Basic Operations
+1. Insertion
+
+    At beginning
+
+    At end
+
+    At specific position
+
+2. Deletion
+
+    From beginning
+
+    From end
+
+    From specific position
+
+3. Traversal
+
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+}
+
+🚀 Advantages
+
+    Dynamic size
+
+    Efficient insertion/deletion (compared to arrays)
+
+    No need to shift elements
+
+🛑 Disadvantages
+
+    No random access (unlike arrays)
+
+    Extra memory for storing pointers
+
+    More complex operations (compared to arrays)
+
+📊 Time Complexity
+
+| Operation             | Singly LL |
+| --------------------- | --------- |
+| Insertion (head/tail) | O(1)/O(n) |
+| Deletion (head/tail)  | O(1)/O(n) |
+| Search                | O(n)      |
+| Traversal             | O(n)      |
+
+
+🧪 Example: Insert at Beginning
+
+void insertAtHead(Node*& head, int val) {
+    Node* newNode = new Node(val);
+    newNode->next = head;
+    head = newNode;
+}
+
+🔁 Circular Linked List Example
+
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int val) {
+        data = val;
+        next = this; // points to itself
+    }
+};
+
+🧭 Real-World Uses
+
+    Undo/redo functionality
+
+    Music/video playlists
+
+    OS scheduling (circular LL)
+
+    Dynamic memory allocation
