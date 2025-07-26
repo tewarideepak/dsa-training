@@ -1,0 +1,93 @@
+🧬 Inheritance in C++ – OOP Notes
+
+Inheritance is a core pillar of Object-Oriented Programming (OOP) that allows a class to derive properties and behaviors from another class. It promotes code reuse, hierarchical classification, and polymorphism.
+🔹 What is Inheritance?
+
+    Inheritance is the mechanism by which one class (child/derived class) inherits the properties and methods of another class (parent/base class).
+
+🔸 Syntax
+
+class Base {
+public:
+    int a;
+    void display() {
+        cout << "Base class\n";
+    }
+};
+
+class Derived : public Base {
+public:
+    void show() {
+        cout << "Derived class\n";
+    }
+};
+
+int main() {
+    Derived obj;
+    obj.a = 10;        // Accessing inherited member
+    obj.display();     // Inherited method
+    obj.show();        // Derived class method
+}
+
+🔹 Types of Inheritance
+
+| Type             | Description                                        | Syntax Example                             |
+| ---------------- | -------------------------------------------------- | ------------------------------------------ |
+| **Single**       | One child inherits from one parent                 | `class B : public A`                       |
+| **Multilevel**   | Child inherits from parent, and is itself a parent | `A → B → C`                                |
+| **Multiple**     | One child inherits from multiple parents           | `class C : public A, public B`             |
+| **Hierarchical** | Multiple classes inherit from one base             | `class B : public A`, `class C : public A` |
+| **Hybrid**       | Combination of above                               | Complex mix with multiple paths            |
+
+
+🔹 Access Specifiers in Inheritance
+
+| Inheritance Type | Public Members of Base Become | Private Members of Base Become |
+| ---------------- | ----------------------------- | ------------------------------ |
+| `public`         | Public in derived class       | Inaccessible                   |
+| `protected`      | Protected in derived class    | Inaccessible                   |
+| `private`        | Private in derived class      | Inaccessible                   |
+
+
+class A {
+protected:
+    int x;
+};
+
+class B : public A {
+public:
+    void show() {
+        cout << x; // OK: x is accessible due to protected
+    }
+};
+
+🔸 Constructors in Inheritance
+
+    Constructors of base class are not inherited.
+
+    Base class constructor is called automatically before derived class constructor.
+
+class A {
+public:
+    A() { cout << "Base\n"; }
+};
+
+class B : public A {
+public:
+    B() { cout << "Derived\n"; }
+};
+
+🔸 Function Overriding
+
+    Derived class can redefine a function from the base class using the same signature.
+
+    Use virtual keyword to allow runtime polymorphism.
+
+🧠 Summary
+
+| Concept        | Description                                     |
+| -------------- | ----------------------------------------------- |
+| Inheritance    | Acquiring properties/methods from another class |
+| Code Reuse     | Avoid code duplication using base class logic   |
+| Polymorphism   | Enables function overriding                     |
+| Access Control | Public, protected, private affect visibility    |

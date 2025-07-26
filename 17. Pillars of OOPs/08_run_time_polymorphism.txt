@@ -1,0 +1,93 @@
+🧠 Run-Time Polymorphism in C++ (OOP Notes)
+
+Run-Time Polymorphism (also called Dynamic Polymorphism) allows functions to behave differently based on the object type at runtime, even when accessed via a base class pointer or reference.
+✅ Achieved Through:
+
+    Inheritance
+
+    Virtual Functions
+
+    Function Overriding
+
+🔁 Function Overriding
+
+When a derived class provides a specific implementation of a virtual function already defined in its base class.
+🧪 Example:
+
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void speak() {  // Virtual function
+        cout << "Animal speaks" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override {
+        cout << "Dog barks" << endl;
+    }
+};
+
+int main() {
+    Animal* a;
+    Dog d;
+    a = &d;
+
+    a->speak();  // Output: Dog barks (determined at runtime)
+}
+
+🧰 Key Concepts
+
+| Feature                | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `virtual` keyword      | Enables runtime binding                              |
+| `override` keyword     | Optional (C++11+), indicates intention to override   |
+| Base class pointer     | Used to achieve dynamic dispatch                     |
+| VTable (Virtual Table) | Used internally by compiler to bind calls at runtime |
+
+
+📌 Characteristics
+| Aspect        | Runtime Polymorphism                         |
+| ------------- | -------------------------------------------- |
+| Binding       | **Late binding (runtime)**                   |
+| Function type | Virtual functions                            |
+| Used with     | Inheritance + base class pointers/references |
+| Performance   | Slight overhead due to vtable lookup         |
+
+
+🔥 Example Without virtual:
+
+class Animal {
+public:
+    void speak() {  // Not virtual
+        cout << "Animal speaks" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() {
+        cout << "Dog barks" << endl;
+    }
+};
+
+int main() {
+    Animal* a;
+    Dog d;
+    a = &d;
+
+    a->speak();  // Output: Animal speaks (not polymorphic)
+}
+
+🔚 Summary Table
+
+| Compile-Time Polymorphism      | Run-Time Polymorphism           |
+| ------------------------------ | ------------------------------- |
+| Function/Operator Overloading  | Virtual Function Overriding     |
+| Binding at **compile time**    | Binding at **runtime**          |
+| Faster execution               | Slightly slower (vtable lookup) |
+| No inheritance required        | Requires inheritance            |
+| Resolved by function signature | Resolved via virtual table      |

@@ -1,0 +1,80 @@
+🔐 Access Modifiers in Inheritance – C++ OOP Notes
+
+When using inheritance in C++, access modifiers (public, protected, private) determine how members of a base class are inherited into a derived class.
+
+🔸 Access Modifiers Overview (Recap)
+
+| Modifier    | Accessible Within Class | Derived Class | Outside Class |
+| ----------- | ----------------------- | ------------- | ------------- |
+| `public`    | ✅                       | ✅             | ✅             |
+| `protected` | ✅                       | ✅             | ❌             |
+| `private`   | ✅                       | ❌             | ❌             |
+
+
+🔹 Inheritance Access Types
+1. Public Inheritance
+
+class Base {
+public: int a;
+protected: int b;
+private: int c;
+};
+
+class Derived : public Base {
+    // a → public
+    // b → protected
+    // c → not accessible
+};
+
+2. Protected Inheritance
+
+class Derived : protected Base {
+    // a → protected
+    // b → protected
+    // c → not accessible
+};
+
+3. Private Inheritance
+
+class Derived : private Base {
+    // a → private
+    // b → private
+    // c → not accessible
+};
+
+🔸 Table Summary
+
+| Member Type in Base | Public Inheritance | Protected Inheritance | Private Inheritance |
+| ------------------- | ------------------ | --------------------- | ------------------- |
+| `public`            | `public`           | `protected`           | `private`           |
+| `protected`         | `protected`        | `protected`           | `private`           |
+| `private`           | Not Inherited      | Not Inherited         | Not Inherited       |
+
+
+🔹 Why Use Each?
+
+    ✅ public inheritance: "is-a" relationship, typical OOP style.
+
+    ⚠️ protected/private inheritance: used for implementation hiding or composition-like behavior.
+
+🔸 Example
+
+class Base {
+public: int a;
+protected: int b;
+private: int c;
+};
+
+class PublicDerived : public Base {
+    void show() {
+        a = 1;  // OK
+        b = 2;  // OK
+        // c = 3;  // ❌ Error: private not inherited
+    }
+};
+
+🧠 Key Notes
+
+    Access modifiers in inheritance affect how members of the base class are inherited, not how members are accessed from outside.
+
+    private members of base class are never inherited directly, but can be accessed via public/protected functions of the base class.

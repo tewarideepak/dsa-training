@@ -1,0 +1,72 @@
+🧩 Inheritance Ambiguity in C++
+
+Inheritance ambiguity arises when multiple base classes have members with the same name, and a derived class inherits from those base classes. The compiler then cannot decide which member to use, leading to ambiguity.
+🔍 Common Case: Diamond Problem
+🧱 Structure:
+
+     A
+    / \
+   B   C
+    \ /
+     D
+
+    Both B and C inherit from A
+
+    D inherits from both B and C
+
+    A's members get inherited twice into D
+
+🧨 Problem Example
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void display() { cout << "A::display\n"; }
+};
+
+class B : public A {};
+class C : public A {};
+class D : public B, public C {};
+
+int main() {
+    D obj;
+    // obj.display(); ❌ Ambiguity: compiler doesn't know whether to call B::A::display or C::A::display
+    obj.B::display();  // ✅ Resolves ambiguity manually
+    obj.C::display();  // ✅
+    return 0;
+}
+
+✅ Solution: Virtual Inheritance
+
+Use virtual keyword to ensure only one instance of the base class is inherited.
+
+class A {
+public:
+    void display() { cout << "A::display\n"; }
+};
+
+class B : virtual public A {};
+class C : virtual public A {};
+class D : public B, public C {};
+
+int main() {
+    D obj;
+    obj.display();  // ✅ No ambiguity
+    return 0;
+}
+
+🧠 Why It Works
+
+    With virtual inheritance, both B and C share a single common instance of A.
+
+    So when D is created, it has only one A, avoiding duplication and ambiguity.
+
+📌 Summary
+
+| Problem                           | Solution              |
+| --------------------------------- | --------------------- |
+| Multiple inheritance of same base | Virtual inheritance   |
+| Conflicting member names          | Use scope resolution  |
+| Diamond problem                   | `virtual` inheritance |

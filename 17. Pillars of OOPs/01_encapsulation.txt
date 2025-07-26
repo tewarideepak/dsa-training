@@ -1,0 +1,75 @@
+🔐 Encapsulation in C++ – OOP Notes
+
+Encapsulation is one of the core principles of Object-Oriented Programming (OOP). It refers to wrapping data and methods that operate on the data into a single unit, typically a class, and restricting direct access to some of the object's components.
+🔸 Definition
+
+    Encapsulation is the practice of binding data (variables) and functions (methods) that manipulate the data together into a single unit and restricting access to that data from outside the class.
+
+🔹 Key Features
+
+| Feature                      | Description                                                            |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| **Data hiding**              | Prevents external code from modifying internal state directly          |
+| **Access control**           | Achieved using access specifiers: `private`, `protected`, `public`     |
+| **Public interface**         | Access to data is provided through getter/setter functions             |
+| **Improved maintainability** | Internal implementation can be changed without affecting external code |
+
+
+🔸 Access Specifiers Used in Encapsulation
+
+    private: Members are accessible only inside the class.
+
+    public: Members are accessible from outside the class.
+
+    protected: Members are accessible in the class and its derived classes.
+
+🔸 Example: Encapsulation with Getters and Setters
+
+class BankAccount {
+private:
+    int balance;  // Hidden from outside
+
+public:
+    void setBalance(int amount) {
+        if (amount >= 0)
+            balance = amount;
+    }
+
+    int getBalance() {
+        return balance;
+    }
+};
+
+int main() {
+    BankAccount acc;
+    acc.setBalance(1000);       // ✅ Using setter
+    cout << acc.getBalance();   // ✅ Using getter
+}
+
+✅ Benefits of Encapsulation
+
+    🔐 Security: Internal state is protected from unauthorized access.
+
+    🧱 Modularity: Code becomes more modular and easier to manage.
+
+    🔄 Flexibility: Internal implementation can change without affecting users.
+
+    🚫 Validation: Setters can validate data before assigning it.
+
+❌ Without Encapsulation (Bad Practice)
+
+class BadExample {
+public:
+    int value;
+};
+
+BadExample obj;
+obj.value = -1000;  // ❌ Invalid data, no control
+
+🧠 Summary
+
+| Concept         | Description                                  |
+| --------------- | -------------------------------------------- |
+| Encapsulation   | Binding data and methods together            |
+| Data hiding     | Hiding internal state using `private` access |
+| Getters/Setters | Public functions to access private data      |

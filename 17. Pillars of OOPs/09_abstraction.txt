@@ -1,0 +1,71 @@
+🧠 Abstraction in C++ (OOP Notes)
+
+Abstraction is one of the four fundamental Object-Oriented Programming (OOP) principles (along with Encapsulation, Inheritance, and Polymorphism).
+✅ Definition
+
+Abstraction means hiding internal implementation details and showing only the essential features to the user.
+🔍 Why Use Abstraction?
+
+    To reduce complexity.
+
+    To increase code reusability and security.
+
+    To separate interface from implementation.
+
+📌 Achieved in C++ by:
+
+    Abstract Classes (with at least one pure virtual function)
+
+    Interfaces (Pure Abstract Classes)
+
+🧪 Example: Abstract Class
+
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    // Pure virtual function (makes the class abstract)
+    virtual void draw() = 0;  
+};
+
+class Circle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing Circle" << endl;
+    }
+};
+
+int main() {
+    Shape* s = new Circle();
+    s->draw();  // Output: Drawing Circle
+    delete s;
+}
+
+🚧 Abstract Class Rules:
+
+| Rule                                     | Description                                              |
+| ---------------------------------------- | -------------------------------------------------------- |
+| Cannot instantiate                       | You **cannot create** objects of abstract class directly |
+| Must override all pure virtual functions | Derived class must implement them to be concrete         |
+| Acts as a blueprint                      | Used to define common interface for derived classes      |
+
+
+🧰 Real-World Example
+
+| Abstraction Example | Explanation                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------ |
+| **TV remote**       | You interact with **buttons**, not the internal circuit                              |
+| **Car interface**   | You use **steering, brake**, but don’t know how engine/transmission works            |
+| **ATM Machine**     | You press buttons, enter PIN, and receive money — internal operations are abstracted |
+
+
+📌 Summary Table
+
+| Feature     | Abstraction                              |
+| ----------- | ---------------------------------------- |
+| Hides       | Implementation details                   |
+| Shows       | Only relevant operations                 |
+| Achieved by | Abstract classes & interfaces            |
+| Helps in    | Code security, maintenance, modularity   |
+| Example     | Virtual functions in abstract base class |

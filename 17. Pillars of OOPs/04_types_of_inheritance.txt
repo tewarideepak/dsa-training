@@ -1,0 +1,100 @@
+🧬 Types of Inheritance in C++ – OOP Notes
+
+Inheritance allows one class (derived) to acquire properties and behavior from another class (base). C++ supports multiple types of inheritance.
+✅ 1. Single Inheritance
+
+    One derived class inherits from one base class.
+
+class Animal {
+public:
+    void eat() { cout << "Eating\n"; }
+};
+
+class Dog : public Animal {
+public:
+    void bark() { cout << "Barking\n"; }
+};
+
+✅ 2. Multiple Inheritance
+
+    One derived class inherits from more than one base class.
+
+class Engine {
+public:
+    void start() { cout << "Engine starts\n"; }
+};
+
+class Wheels {
+public:
+    void rotate() { cout << "Wheels rotate\n"; }
+};
+
+class Car : public Engine, public Wheels {};
+
+🟨 Caution: Can lead to ambiguity if both base classes have members with the same name.
+✅ 3. Multilevel Inheritance
+
+    A class is derived from another derived class.
+
+class Animal {
+public:
+    void eat() {}
+};
+
+class Mammal : public Animal {
+public:
+    void walk() {}
+};
+
+class Human : public Mammal {
+public:
+    void think() {}
+};
+
+✅ 4. Hierarchical Inheritance
+
+    Multiple classes inherit from a single base class.
+
+class Shape {
+public:
+    void draw() {}
+};
+
+class Circle : public Shape {};
+class Rectangle : public Shape {};
+
+✅ 5. Hybrid Inheritance
+
+    A combination of two or more types of inheritance.
+
+// Multiple + Hierarchical → Hybrid
+class A {
+public:
+    void show() {}
+};
+
+class B : public A {};
+class C : public A {};
+
+class D : public B, public C {};  // ⚠️ Ambiguity arises!
+
+🛠️ Solution: Use virtual inheritance to avoid ambiguity (diamond problem).
+
+class A {
+public:
+    void show() {}
+};
+
+class B : virtual public A {};
+class C : virtual public A {};
+class D : public B, public C {};
+
+📊 Summary Table
+
+| Type         | Description                    |
+| ------------ | ------------------------------ |
+| Single       | One base → one derived         |
+| Multiple     | Multiple bases → one derived   |
+| Multilevel   | Inheritance in chain           |
+| Hierarchical | One base → multiple derived    |
+| Hybrid       | Combination (may need virtual) |

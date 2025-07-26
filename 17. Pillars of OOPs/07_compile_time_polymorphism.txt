@@ -1,0 +1,84 @@
+⚙️ Compile-Time Polymorphism in C++ (OOP Notes)
+
+Compile-Time Polymorphism (also called Static Polymorphism) occurs when the function to be invoked is determined at compile time. It is achieved using:
+
+    Function Overloading
+
+    Operator Overloading
+
+✅ Key Characteristics:
+
+| Feature        | Compile-Time Polymorphism                  |
+| -------------- | ------------------------------------------ |
+| Binding Type   | Early binding (at compile time)            |
+| Achieved Using | Function overloading, operator overloading |
+| Flexibility    | Limited, based on function signatures      |
+| Performance    | Faster (no runtime overhead)               |
+
+
+1️⃣ Function Overloading
+
+Definition: Multiple functions with the same name but different parameter types or count.
+
+class Print {
+public:
+    void show(int x) {
+        cout << "Integer: " << x << endl;
+    }
+
+    void show(double x) {
+        cout << "Double: " << x << endl;
+    }
+
+    void show(string x) {
+        cout << "String: " << x << endl;
+    }
+};
+
+int main() {
+    Print p;
+    p.show(5);        // Integer
+    p.show(5.5);      // Double
+    p.show("Hello");  // String
+}
+
+2️⃣ Operator Overloading
+
+Definition: Redefining existing C++ operators (e.g., +, -, *, etc.) to work with user-defined types (objects).
+
+class Complex {
+public:
+    int real, imag;
+
+    Complex(int r, int i) : real(r), imag(i) {}
+
+    Complex operator+(const Complex& other) {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    void display() {
+        cout << real << " + " << imag << "i" << endl;
+    }
+};
+
+int main() {
+    Complex c1(2, 3), c2(1, 4);
+    Complex c3 = c1 + c2;  // Calls overloaded + operator
+    c3.display();          // Output: 3 + 7i
+}
+
+⚠️ Notes:
+
+    Return types are not considered in overloading.
+
+    Overloading does not support default argument conflicts.
+
+    You cannot overload operators like ::, ., sizeof, ?:.
+
+🔚 Summary Table
+
+| Concept            | Function Overloading                                   | Operator Overloading                       |
+| ------------------ | ------------------------------------------------------ | ------------------------------------------ |
+| What it does       | Multiple functions with same name but different params | Redefines operators for user-defined types |
+| Binding type       | Compile-time                                           | Compile-time                               |
+| Real-life use case | Print info in different formats                        | Add two `Complex` numbers                  |
