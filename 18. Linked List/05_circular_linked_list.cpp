@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// 📘 Node Class
+// 📘 Node class
 class Node
 {
 public:
@@ -27,9 +27,11 @@ void insertAtBeginning(Node *&head, Node *&tail, int val)
     if (!head)
     {
         head = tail = newNode;
+        newNode->next = head;
         return;
     }
     newNode->next = head;
+    tail->next = newNode;
     head = newNode;
 }
 
@@ -37,25 +39,20 @@ void insertAtBeginning(Node *&head, Node *&tail, int val)
 void insertAtEnd(Node *&head, Node *&tail, int val)
 {
     Node *newNode = new Node(val);
-    if (!tail)
+    if (!head)
     {
         head = tail = newNode;
+        newNode->next = head;
         return;
     }
-
     tail->next = newNode;
+    newNode->next = head;
     tail = newNode;
 }
 
-// 📘 Insert at a Given Position (1-based index)
+// 📘 Insert at Given Position (1-based index)
 void insertAtPos(Node *&head, Node *&tail, int pos, int val)
 {
-    if (pos <= 0)
-    {
-        cout << "Invalid position.\n";
-        return;
-    }
-
     if (pos == 1)
     {
         insertAtBeginning(head, tail, val);
@@ -65,32 +62,24 @@ void insertAtPos(Node *&head, Node *&tail, int pos, int val)
     Node *temp = head;
     int count = 1;
 
-    while (count < pos - 1 && temp != nullptr)
+    while (count < pos - 1 && temp->next != head)
     {
         temp = temp->next;
         count++;
-    }
-
-    if (temp == nullptr)
-    {
-        cout << "Position out of bounds.\n";
-        return;
     }
 
     Node *newNode = new Node(val);
     newNode->next = temp->next;
     temp->next = newNode;
 
-    if (newNode->next == nullptr)
-    {
+    if (temp == tail)
         tail = newNode;
-    }
 }
 
 // 📘 Delete Node by Position (1-based index)
 void deleteNode(Node *&head, Node *&tail, int pos)
 {
-    if (head == nullptr)
+    if (!head)
     {
         cout << "List is empty.\n";
         return;
@@ -99,48 +88,60 @@ void deleteNode(Node *&head, Node *&tail, int pos)
     if (pos == 1)
     {
         Node *temp = head;
-        head = head->next;
-        if (head == nullptr)
-            tail = nullptr; // If list becomes empty
+
+        if (head == tail)
+        {
+            head = tail = nullptr;
+        }
+        else
+        {
+            head = head->next;
+            tail->next = head;
+        }
         delete temp;
         return;
     }
 
-    Node *prev = nullptr;
-    Node *curr = head;
-    int count = 1;
+    Node *prev = head;
+    Node *curr = head->next;
+    int count = 2;
 
-    while (curr != nullptr && count < pos)
+    while (curr != head && count < pos)
     {
         prev = curr;
         curr = curr->next;
         count++;
     }
 
-    if (curr == nullptr)
+    if (curr == head)
     {
         cout << "Position out of bounds.\n";
         return;
     }
 
     prev->next = curr->next;
-    if (prev->next == nullptr)
-    {
-        tail = prev; // If last node is deleted, update tail
-    }
+    if (curr == tail)
+        tail = prev;
 
     delete curr;
 }
 
-// 📘 Print the List
+// 📘 Print Circular Linked List
 void printList(Node *head)
 {
-    while (head != nullptr)
+    if (!head)
     {
-        cout << head->data << " -> ";
-        head = head->next;
+        cout << "List is empty.\n";
+        return;
     }
-    cout << "NULL\n";
+
+    Node *temp = head;
+    do
+    {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    } while (temp != head);
+    cout << "(head)\n";
 }
 
 // 📘 Main Function
@@ -150,13 +151,11 @@ int main()
     Node *tail = nullptr;
 
     insertAtBeginning(head, tail, 10);
-    tail = head; // Only one node now
-
     insertAtBeginning(head, tail, 20);
     insertAtEnd(head, tail, 30);
     insertAtPos(head, tail, 2, 25);
 
-    cout << "Initial List:\n";
+    cout << "Initial Circular List:\n";
     printList(head);
 
     cout << "\nDeleting 1st node:\n";
@@ -171,7 +170,7 @@ int main()
     deleteNode(head, tail, 2);
     printList(head);
 
-    cout << "\nDeleting node at position 5 (Invalid):\n";
+    cout << "\nTrying to delete out of bounds:\n";
     deleteNode(head, tail, 5);
     printList(head);
 
