@@ -1,0 +1,113 @@
+📘 Stack in C++ (Notes)
+1. What is a Stack?
+
+A linear data structure that follows the LIFO (Last In, First Out) principle.
+
+Example: A stack of plates → the last plate placed is the first one to be removed.
+
+2. Operations in Stack
+
+push(x) → Insert element x at the top.
+
+pop() → Remove element from the top.
+
+top() / peek() → Access the element at the top without removing it.
+
+empty() → Check if the stack is empty (true/false).
+
+size() → Get the number of elements in the stack.
+
+3. Implementation
+
+(a) Using STL stack
+
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+    stack<int> st;
+
+    st.push(10);   // push
+    st.push(20);
+    st.push(30);
+
+    cout << "Top element: " << st.top() << endl;  // 30
+
+    st.pop();  // removes 30
+    cout << "Top after pop: " << st.top() << endl; // 20
+
+    cout << "Size: " << st.size() << endl;  // 2
+
+    cout << (st.empty() ? "Stack is empty" : "Stack is not empty") << endl;
+
+    return 0;
+}
+
+(b) Manual Implementation (using array)
+
+class Stack {
+    int arr[1000], topIndex;
+public:
+    Stack() { topIndex = -1; }
+
+    void push(int x) {
+        if (topIndex == 999) {
+            cout << "Stack Overflow\n";
+            return;
+        }
+        arr[++topIndex] = x;
+    }
+
+    void pop() {
+        if (topIndex == -1) {
+            cout << "Stack Underflow\n";
+            return;
+        }
+        topIndex--;
+    }
+
+    int top() {
+        if (topIndex == -1) {
+            cout << "Stack is Empty\n";
+            return -1;
+        }
+        return arr[topIndex];
+    }
+
+    bool empty() { return topIndex == -1; }
+};
+
+4. Time Complexity
+
+push() → O(1)
+
+pop() → O(1)
+
+top() → O(1)
+
+empty() → O(1)
+
+5. Applications of Stack
+
+Expression evaluation (postfix/prefix/infix).
+
+Undo/Redo in text editors.
+
+Function call stack (recursion).
+
+Balanced parentheses checking.
+
+DFS (Depth First Search) in graphs.
+
+Backtracking algorithms (like maze solving).
+
+6. Key Points
+
+Stack works on LIFO.
+
+Use STL stack<T> for direct use.
+
+Can be implemented using array or linked list.
+
+Does not allow random access (unlike arrays or vectors).
