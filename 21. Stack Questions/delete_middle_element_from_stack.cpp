@@ -128,3 +128,9 @@ int main()
 
     return 0;
 }
+
+// 🔹 Complexity
+
+// Time Complexity: O(N) (each element touched once)
+
+// Space Complexity: O(1) (no extra DS, only recursion stack) → optimal
